@@ -1,0 +1,30 @@
+{
+  "name": "city-match",
+  "version": "1.0.0",
+  "description": "Discover the UK city you want to live in. This app is built by using open data",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/coltaemanuela/city-match.git"
+  },
+  "keywords": [
+    "Uk",
+    "city"
+  ],
+  "author": "Emanuela Colta, Emil Enache, Alejandro Aguilera, Weicho Gong",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/coltaemanuela/city-match/issues"
+  },
+  "homepage": "https://github.com/coltaemanuela/city-match#readme",
+  "dependencies": {
+    "ejs": "^2.5.9",
+    "express": "^4.16.3",
+    "express-session": "^1.15.6",
+    "firebase": "^4.13.0",
+    "nodemon": "^1.17.3"
+  }
+}
