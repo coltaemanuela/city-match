@@ -4,8 +4,8 @@ Discover the city you want to live in
 
 Run app:
 1. Clone the repository
-2. Access the folder in terminal and rup npm i (this will install all the node packagagies defines in package.json)
-3. run node index.js
+2. Access the folder in terminal and rup `npm i` (this will install all the node packagagies defines in package.json)
+3. run `node index.js`
 4. open the browser - localhost:3000
 
 Project structure:
