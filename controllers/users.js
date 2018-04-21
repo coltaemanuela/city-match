@@ -30,7 +30,9 @@ router.post('/register', function(req, res) {
             res.render("error", { error: err });
         });
     }).catch(function(error) {
-        if (error.code === 'auth/email-already-in-use') {} else {}
+        if (error.code === 'auth/email-already-in-use') {
+            res.send('email already in use');
+        } else {}
         res.render("error", {
             error: error
         });
