@@ -1,0 +1,21 @@
+{    
+    "firebase" : {
+        "apiKey": "AIzaSyD2Ch6ki-gZ98roJx7cj6Rcb2-OY4ZM0vo",
+        "authDomain": "city-match.firebaseapp.com",
+        "databaseURL": "https://city-match.firebaseio.com",
+        "projectId": "city-match",
+        "storageBucket": "city-match.appspot.com",
+        "messagingSenderId": "331136100363"
+    },
+    "server" : {
+		"port" : "3000"
+    },
+    "session" : {      
+        "secret": "HtpodLPfga5l66rh",
+        "resave":true,
+        "saveUninitialized":true,
+        "cookie":{},
+        "duration":"2700000",
+        "activeDuration": "900000" 
+    }
+}
