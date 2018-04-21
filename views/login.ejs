@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  </head>
+  <body>
+<div class="wrapper" style="margin: 0% 0% 0% 30%">
+    <h1 style="padding-left:18%;  padding-bottom: 3%; padding-top:7%; color:#8B0000; font-size:25px;"><%= title %></h1>
+    <div class="row">
+    <div class="col col-md-6 offset-3">
+    <form method="post" action="/users/login">
+        <input type="email"  class="form-control" name="email" placeholder="email" required="required"><br/>
+        <input type="password" class="form-control" name="password" placeholder="password" required="required"><br/>
+        <button type="submit" class=" btn-block" style=" color: #8B0000;">Login</button>
+    </form>
+    </div>
+    </div>
+</div>
+  </body>
+</html>

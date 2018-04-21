@@ -15,14 +15,14 @@ router.post('/register', function(req, res) {
 
     //Register a new user with email and password
     firebase.auth().createUserWithEmailAndPassword(email, password).then(function(data) {
-       // data.sendEmailVerification();
-       firebase.auth().signInWithEmailAndPassword(email, password).then(function(data) {
-			 firebase.database().ref(`users/${data.uid}`).set({
-        'email': email,
-        'usename': username,
-        'city': city,
-        'age': age
-      });
+        // data.sendEmailVerification();
+        firebase.auth().signInWithEmailAndPassword(email, password).then(function(data) {
+        firebase.database().ref(`users/${data.uid}`).set({
+            'email': email,
+            'usename': username,
+            'city': city,
+            'age': age
+        });
 
         }).then(function (data) {
             res.redirect("/users/login");
@@ -37,6 +37,17 @@ router.post('/register', function(req, res) {
             error: error
         });
     });
+});
+
+router.get('/login', function(req, res){
+    res.render('login', {title:"Sign in"});
+});
+
+router.post('/login', function(req,res){
+    firebase.auth().signInWithEmailAndPassword(req.body.email, req.body.password).then(function(data) {
+        console.log(data);
+        res.send('welcome!');        
+    });        
 });
 
 module.exports = router;
