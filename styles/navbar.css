@@ -1,0 +1,21 @@
+nav{
+    background-color: rgba(155, 150, 150, 0.69);
+    height: 60px;
+    /* rgb(77,106,121); */
+}
+.navbar-brand{
+    background-image: url('./images/logo.png');
+    width: 150px;
+    height: 59px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+.auth{
+    /* color:#db4437; */
+    color: rgb(77,106,121);
+    font-weight: 600;
+}
+.search{
+    background-color:#db4437;
+    color: #fff;
+}

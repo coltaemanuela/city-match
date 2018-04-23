@@ -11,6 +11,8 @@ var users = require('./controllers/users');
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+app.use("/styles",express.static(__dirname + "/styles"));
+
 //firebase initiatialization
 firebase.initializeApp(config.firebase);
 //user session
