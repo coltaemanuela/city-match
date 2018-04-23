@@ -24,8 +24,23 @@ app.use(bodyParser.json());
 //routes
 app.use('/users', users);
 app.get('/', function (req, res) {
-    //  res.send('City match app rocks!');
     res.render('index');
+});
+
+app.post('/search', function(req,res){
+  var city = req.body.city;
+  console.log(city);
+  firebase.database().ref(`cities/` + city).once('value')
+  .then(function(data) {
+    console.log(data.val());
+      res.render('search_result', {
+          city: city,
+          details: data.val()
+      });
+  })
+  .catch(function(error) {
+    res.send(error);
+  });
 });
 
 app.use(function (err, req, res, next) {
