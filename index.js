@@ -22,7 +22,15 @@ app.use(bodyParser.json());
 //routes
 app.use('/users', users);
 app.get('/', function (req, res) {
-     res.send('City match app rocks!');
+    //  res.send('City match app rocks!');
+    res.render('index');
+});
+
+app.use(function (err, req, res, next) {
+  console.log(err);
+  if (err.name === 'UnauthorizedError') {
+    res.send('unauthorized user');
+  }
 });
 
 //server
