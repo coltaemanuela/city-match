@@ -16,3 +16,5 @@ conrtollers/users.js - all the routes related to user (user profile, registratio
 views - all HTML files will be placed here. These views have the ".ejs" extension because the node package called "ejs" is the one we will use for inserting js variables (exported from the controllers) in the HTML.
 
 Learn more about ejs here: https://scotch.io/tutorials/use-ejs-to-template-your-node-application
+
+![preview image](https://github.com/coltaemanuela/city-match/blob/master/styles/images/Screenshot%20from%202018-04-23%2020-21-54.png)
