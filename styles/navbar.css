@@ -19,3 +19,7 @@ nav{
     background-color:#db4437;
     color: #fff;
 }
+.custommap { 
+    height: 500px;
+    width:500px; 
+} 
