@@ -19,7 +19,7 @@ router.post('/register', function(req, res) {
         firebase.auth().signInWithEmailAndPassword(email, password).then(function(data) {
         firebase.database().ref(`users/${data.uid}`).set({
             'email': email,
-            'usename': username,
+            'username': username,
             'city': city,
             'age': age
         });
@@ -44,8 +44,14 @@ router.get('/login', function(req, res){
 
 router.post('/login', function(req,res){
     firebase.auth().signInWithEmailAndPassword(req.body.email, req.body.password).then(function(data) {
-        res.send('welcome!');        
-    });        
+        firebase.database().ref(`users/${data.uid}`).once('value')
+        .then(function(details) {
+            console.log(details.val());
+            res.render('user_profile.ejs', {
+                details: details.val()
+            });
+        });     
+    });   
 });
 
 module.exports = router;
