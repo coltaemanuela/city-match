@@ -1,0 +1,20 @@
+.favorite{
+    background-image: url('./images/btn-list-add-to-favourites-hover.png');
+    width: 50px;
+    height: 30px;
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+.favorite:hover,
+.favorite:active {
+    background-image: url('./images/btn-favourite-selected.png');
+    width: 50px;
+    height: 30px;
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+
+h3{
+    width: 230px;
+    display: inline-block;
+}

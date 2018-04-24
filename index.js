@@ -1,5 +1,7 @@
 var express = require('express');
-firebase = require('firebase');
+var firebase = require('firebase');
+require('firebase/auth');
+require('firebase/database');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var path = require('path');
