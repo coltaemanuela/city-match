@@ -27,15 +27,14 @@ router.post('/register', function(req, res) {
         }).then(function (data) {
             res.redirect("/users/login");
         }).catch(function (err) {
-            res.render("error", { error: err });
+            res.send("error");
         });
     }).catch(function(error) {
         if (error.code === 'auth/email-already-in-use') {
             res.send('email already in use');
-        } else {}
-        res.render("error", {
-            error: error
-        });
+        }
+        console.log(error);
+       res.send('error');
     });
 });
 
@@ -45,7 +44,6 @@ router.get('/login', function(req, res){
 
 router.post('/login', function(req,res){
     firebase.auth().signInWithEmailAndPassword(req.body.email, req.body.password).then(function(data) {
-        console.log(data);
         res.send('welcome!');        
     });        
 });

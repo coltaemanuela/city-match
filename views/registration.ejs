@@ -8,13 +8,13 @@
     <div class="col col-md-3 offset-7 register-form">
       <form method="post" action="/users/register">
         <div class="form-group">
-          <input type="email" class="form-control form-control-lg input-block"id="exampleFormControlInput1" placeholder="name@example.com">
+          <input type="email" class="form-control form-control-lg input-block"id="exampleFormControlInput1"  name="email" placeholder="name@example.com">
         </div>
         <div class="form-group">          
           <input type="password"class="form-control form-control-lg input-block" name="password" placeholder="password" required="required">
         </div>
         <div class="form-group">          
-          <select id="inputState" class="form-control form-control-lg input-block">
+          <select id="inputState" class="form-control form-control-lg input-block" name="city">
             <option selected>Choose city</option> <!-- more options to be added from the DB when we will have the JSON -->
             <option>Birmingham</option>
           </select>
