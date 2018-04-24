@@ -23,16 +23,16 @@ app.use(bodyParser.json());
 
 //routes
 app.use('/users', users);
+//homepage
 app.get('/', function (req, res) {
     res.render('index');
 });
-
+//retrieve search results
 app.post('/search', function(req,res){
   var city = req.body.city;
   console.log(city);
   firebase.database().ref(`cities/` + city).once('value')
   .then(function(data) {
-    console.log(data.val());
       res.render('search_result', {
           city: city,
           details: data.val()
