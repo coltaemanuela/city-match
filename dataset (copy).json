@@ -1,0 +1,54 @@
+{
+   "cities":{
+        "Aberdeen": {
+            "Average_Weekly_Workplace_Earnings_2017": 596.6,
+            "CO2_Emissions_per_Capita_2015_(tons)": 5.7963097,
+            "Employment_Rate_2017_(%)": 73.57,
+            "Housing_Affordability_Ratio_2017": 6.917660395,
+            "Mean_house_price_2017": 199931.454,
+            "Population_2016": 229800,
+            "Ratio_of_Private_to_Public_Sector_Employment_2016": 3.02,
+            "Ultrafast_Broadband_2017_(%)": 0.37
+        },
+        "Aldershot":{
+            "Average_Weekly_Workplace_Earnings_2017": 588.3,
+            "CO2_Emissions_per_Capita_2015_(tons)": 5.3522852,
+            "Employment_Rate_2017_(%)": 78.25,
+            "Housing_Affordability_Ratio_2017": 11.44088846,
+            "Mean_house_price_2017": 386147.5,
+            "Population_2016": 184700,
+            "Ratio_of_Private_to_Public_Sector_Employment_2016": 3.98,
+            "Ultrafast_Broadband_2017_(%)": 80.09
+        },
+        "Barnsley":{
+            "Average_Weekly_Workplace_Earnings_2017": 453.2,
+            "CO2_Emissions_per_Capita_2015_(tons)": 5.3790443,
+            "Employment_Rate_2017_(%)": 71.14,
+            "Housing_Affordability_Ratio_2017": 5.178424275,
+            "Mean_house_price_2017": 126183.7,
+            "Population_2016": 241200,
+            "Ratio_of_Private_to_Public_Sector_Employment_2016": 2.22,
+            "Ultrafast_Broadband_2017_(%)": 44.04
+        },
+        "Basildon":{
+            "Average_Weekly_Workplace_Earnings_2017": 501.2,
+            "CO2_Emissions_per_Capita_2015_(tons)": 4.4519135,
+            "Employment_Rate_2017_(%)": 70.96,
+            "Housing_Affordability_Ratio_2017": 10.39685735,
+            "Mean_house_price_2017": 314488.3,
+            "Population_2016": 183400,
+            "Ratio_of_Private_to_Public_Sector_Employment_2016": 3.24,
+            "Ultrafast_Broadband_2017_(%)": 62.82
+        },
+        "Birmingham":{     
+            "Average_Weekly_Workplace_Earnings_2017": 527.2,
+            "CO2_Emissions_per_Capita_2015_(tons)": 4.4208317,
+            "Employment_Rate_2017_(%)": 66.69,
+            "Housing_Affordability_Ratio_2017": 7.456257757,
+            "Mean_house_price_2017": 190984.4,
+            "Population_2016": 2512000,
+            "Ratio_of_Private_to_Public_Sector_Employment_2016": 2.53,
+            "Ultrafast_Broadband_2017_(%)": 85.95
+          }
+    } 
+}
