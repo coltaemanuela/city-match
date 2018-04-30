@@ -51,10 +51,8 @@
           "timestamp" : 1525102524910
         }];
       
-    // console.log(data);
     var ceva = [];
-    
-    
+        
     // http://bl.ocks.org/feyderm/03602b83146d69b1b6993e5f98123175 
     data.map(x => {
         ceva.push( parseInt(x["population"]));
@@ -89,16 +87,6 @@
                     .append("svg")
                     .attr("width", svg_dx)
                     .attr("height", svg_dy)
-
-
-    //    function getRandomColor() {
-    //         var letters = '0123456789ABCDEF';
-    //         var color = '#';
-    //         for (var i = 0; i < 6; i++) {
-    //             color += letters[Math.floor(Math.random() * 16)];
-    //         }
-    //         return color;
-    //     }
 
         // plot data
         var circles = svg.append("g")
