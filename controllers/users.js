@@ -51,7 +51,7 @@ router.post('/login', function(req,res){
     firebase.auth().signInWithEmailAndPassword(req.body.email, req.body.password).then(function(data) {
         firebase.database().ref(`users/${data.uid}`).once('value')
         .then(function(details) {
-            console.log(firebase.auth().currentUser.email,firebase.auth().currentUser.uid );            
+            console.log(firebase.auth().currentUser.email,firebase.auth().currentUser.uid, details.val() );            
             res.render('user_profile.ejs', {
                 details: details.val()
             });
@@ -63,6 +63,7 @@ router.post('/favorite', isAuthenticated,function(req, res){
     console.log('permission approved'+ req.user.uid);    
     firebase.database().ref(`users/${req.user.uid}/favorites`).push({        
         "city":req.body.city,
+        "population": req.body.city_population,
         "timestamp": Date.now()
     });
 });
