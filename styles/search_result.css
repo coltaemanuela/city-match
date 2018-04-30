@@ -1,20 +1,28 @@
 .favorite{
-    background-image: url('./images/btn-list-add-to-favourites-hover.png');
-    width: 50px;
+    background: url('./images/btn-list-add-to-favourites-hover.png');
+    width: 30px;
     height: 30px;
     background-repeat: no-repeat;
     display: inline-block;
+    float: right;
+    margin-right: 70px;
+    padding: 0;
+    border: none;
 }
 .favorite:hover,
-.favorite:active {
+.favorite:active,
+.favorite-success {
     background-image: url('./images/btn-favourite-selected.png');
-    width: 50px;
+    width: 30px;
     height: 30px;
     background-repeat: no-repeat;
     display: inline-block;
 }
-
+.details-side{
+    margin-top: 30px;
+}
 h3{
     width: 230px;
     display: inline-block;
+    color:rgb(77,106,121);
 }

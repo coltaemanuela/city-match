@@ -59,7 +59,12 @@ router.post('/login', function(req,res){
     });   
 });
 
-router.get('/favorite', isAuthenticated,function(req, res){
-    console.log('permission approved');
+router.post('/favorite', isAuthenticated,function(req, res){
+    console.log('permission approved'+ req.user.uid);    
+    firebase.database().ref(`users/${req.user.uid}/favorites`).push({        
+        "city":req.body.city,
+        "timestamp": Date.now()
+    });
 });
+
 module.exports = router;
