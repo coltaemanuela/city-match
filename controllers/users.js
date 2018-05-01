@@ -78,4 +78,17 @@ router.post('/favorite', isAuthenticated,function(req, res){
     });
 });
 
+
+router.post('/review', isAuthenticated,function(req, res){
+    console.log('permission approved'+ req.user.uid);
+    firebase.database().ref(`users/${req.user.uid}/reviews`).push({
+        "city":req.body.city,
+				"title": req.body.title,
+        "reviews_body": req.body.review_body,
+        "timestamp": Date.now()
+    });
+});
+
+
+
 module.exports = router;
