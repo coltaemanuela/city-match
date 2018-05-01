@@ -1,113 +1,115 @@
-<%- include partials/head.ejs %>      
-<%- include partials/navbar.ejs %> 
+<%- include partials/head.ejs %>
+<%- include partials/navbar.ejs %>
 <link rel="stylesheet" type="text/css" href="../../styles/user_profile.css">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans:400,700" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <body>
-    <div class="wrapper">                  
+    <div class="wrapper">
         <div class="row profile-section-1">
             <div class="col-md-6" id="block" style="margin-top: 200px;">
             </div>
             <div class="col-md-4 favorite-list">
-                <div class="favorite-row">      
+                <div class="favorite-row">
                     <% if(details.favorites){
                         Object.keys(details.favorites).forEach(function (id) {
-                            var favorite = details.favorites[id] %> 
+                            var favorite = details.favorites[id] %>
                             <p> <%= favorite.city %> </p>
                         <% }) %>
                     <% } else { %>
                         <p>No favorite cities to display.</p>
-                    <%}%>  
-                </div>             
+                    <%}%>
+                </div>
             </div>
             <div class="col-md-2">
                 <h4><%= details.username %></h4>
                 <p><%= details.city%></p>
             </div>
-        </div>  
+        </div>
         <div class="recommended-cities">
             <h3>Recommeded cities</h3>
+            <% if(existing_recommendations.length === 0){%>
+              <p><small><i>No recommedations yet. Take the quiz below to discover what are the suibale cities for you. </i></small></p>
+              <form method="post" action="/users/recommendations">
+                  <section id="first" class="section">
+                    <div class="container">
+                      <p>How are you (or your family) usually spending your spare time? </p>
+                      <input type="radio" name="spare-time" id="radio-1" value="movies">
+                      <label for="radio-1"><span class="radio">Watching TV, movies or playing online games</span></label>
+                    </div>
+                    <div class="container">
+                      <input type="radio" name="spare-time" id="radio-2" value="sport">
+                      <label for="radio-2"><span class="radio">Doing sports (e.g. swimming, running)</span></label>
+                    </div>
+                    <div class="container">
+                      <input type="radio" name="spare-time" id="radio-3" value="cultural">
+                      <label for="radio-3"><span class="radio">Reading or other cultural activities (e.g. visiting museums)</span></label>
+                    </div>
+                    <div class="container">
+                      <input type="radio" name="spare-time" id="radio-4" value="friends">
+                      <label for="radio-4"><span class="radio"> Hang out with friends( e.g. go to pub, parties)</span></label>
+                    </div>
+                </section>
+                <section id="second" class="section">
+                    <div class="container">
+                      <p>Your preferred workplace type:</p>
+                      <input type="radio" name="workplace" id="radio-5" value="corporation">
+                      <label for="radio-5"><span class="radio">Big corporation or a multinational company</span></label>
+                    </div>
+                    <div class="container">
+                      <input type="radio" name="workplace" id="radio-6" value="start-up">
+                      <label for="radio-6"><span class="radio">  Start-up </span></label>
+                    </div>
+                    <div class="container">
+                      <input type="radio" name="workplace" id="radio-7" value="freelance">
+                      <label for="radio-7"><span class="radio">Work from home, as a freelancer  or own business </span></label>
+                    </div>
+                    <div class="container">
+                      <input type="radio" name="workplace" id="radio-8" value="small-medium">
+                      <label for="radio-8"><span class="radio">Small or medium-sized company</span></label>
+                    </div>
+                </section>
+                <section id="third" class="section">
+                  <div class="container">
+                    <p>On the scale below, how important is your career to you?</p>
+                      <input name="career" type="range" min="0" max="10">
+                  </div>
+                </section>
+                <section id="fourth" class="section">
+                  <div class="container">
+                    <p>On the scale below, how likely are you to take risks?</p>
+                      <input name="risk" type="range" min="0" max="10">
+                  </div>
+                </section>
+                <section id="fifth" class="section">
+                  <div class="container">
+                    <p>Do you agree with the statement: “I’d rather earn more and have less spare time”: </p>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="time-money-true" id="cultural" value="true">
+                      <label class="form-check-label" for="time-money-true">True</label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="time-money-false" id="friends" value="false">
+                      <label class="form-check-label" for="time-money-false">False </label>
+                    </div>
+                  </div>
+                </section>
+                <section id="sixth" class="section">
+                  <div class="container">
+                    <p>Pick your favorite color (click the bubble):</p>
+                    <div class="input-color-container">
+                      <input id="input-color" type="color" class="input-color" value="#ffffff" name="color">
+                    </div>
+                  </div>
+                </section>
+
+                <div class="container">
+                  <button type="submit" class="btn">Submit</button>
+                </div>
+
+              </form>
+            <% }else{%>
+
+            <%} %>
         </div>
-       
-    <script>
-        var data =
-        [{
-          "city" : "Manchester",
-          "population" : "2459200",
-          "timestamp" : 1525102364035
-        },
-        {
-          "city" : "Coventry",
-          "population" : "352900",
-          "timestamp" : 1525102377250
-        },
-         {
-          "city" : "Southampton",
-          "population" : "383900",
-          "timestamp" : 1525102385520
-        },
-        {
-          "city" : "Blackpool",
-          "population" : "217200",
-          "timestamp" : 1525102524910
-        }];
-      
-    var ceva = [];
-        
-    // http://bl.ocks.org/feyderm/03602b83146d69b1b6993e5f98123175 
-    data.map(x => {
-        ceva.push( parseInt(x["population"]));
-    });
-
-    console.log(ceva);
-
-        // dimensions
-        var margin = { top: 20, right: 20, bottom: 0, left: 0 },
-            svg_dx = 750, 
-            svg_dy = 100
-            chart_dx = svg_dx - margin.right - margin.left,
-            chart_dy = svg_dy - margin.top - margin.bottom;
-
-        // data
-        var y = d3.randomNormal(11, 10);
-        var x_jitter = d3.randomUniform(0, 1);
-        var d = d3.range(data.length).map(function() { 
-                    return [x_jitter(), y()]; 
-                });
-
-        var colorScale = d3.scaleLinear()
-                            .domain(d3.extent(d, function(d) { return d[1]; }))
-                            .range([0, 1]);
-
-
-        var yScale  = d3.scaleLinear().domain([d3.min(ceva, c => { return c/10000;}), d3.max(ceva, c => {return c/10000;})+500]).range([0, margin.top]);
-        var yAxis = d3.axisLeft(yScale);
-
-        // zoom
-        var svg = d3.select("#block")
-                    .append("svg")
-                    .attr("width", svg_dx)
-                    .attr("height", svg_dy)
-
-        // plot data
-        var circles = svg.append("g")
-                        .attr("id", "circles")
-                        .attr("transform", "translate(80, 0)")
-                        .selectAll("circle")
-                        .data(ceva)
-                        .enter()
-                        .append("circle")
-                        .attr("r", 8)
-                        .attr("cy", function(c) { return 10; })
-                        .attr("cx", function(c) { return c/10000; })
-                        .style("fill", function(c) { 
-                            var norm_color = colorScale(c/1000);
-                            return d3.interpolateInferno(norm_color) 
-                        });
-
-        // // add y-axis
-        // var x_axis = svg.append("g")
-        //                 .attr("id", "x_axis")
-        //                 .attr("transform", "translate(75,0)")
-        //                 .call(yAxis)  
-</script>
-</body>    
+</body>
