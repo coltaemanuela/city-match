@@ -7,6 +7,7 @@ var auth_user = {};
 // middleware to verify if user is authenticated. This will secure some routes
 function isAuthenticated (req, res, next) {
     var user = firebase.auth().currentUser;
+    console.log('current user ' + user);
     if (user !== null) {
         req.user = user;
         next();
@@ -79,6 +80,19 @@ router.post('/favorite', isAuthenticated,function(req, res){
         "timestamp": Date.now()
     });
 });
+
+
+//todo: rename to /pinCity
+router.post('/interestedin', isAuthenticated, function(req, res) {
+    console.log('permission approved'+ req.user.uid);
+    firebase.database().ref(`users/${req.user.uid}/interestedin`).push({
+        "city": req.body.city,
+        "timestamp": Date.now()
+    });
+    res.send("city " + req.body.city + " added as favorite");
+});
+
+//todo: post /unpinCity
 
 router.post('/review', isAuthenticated,function(req, res){
     console.log('permission approved'+ req.user.uid);

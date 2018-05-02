@@ -26,3 +26,28 @@ h3{
     display: inline-block;
     color:rgb(77,106,121);
 }
+
+.pin{
+    background: url('./images/btn-pin.png');
+    width: 30px;
+    height: 30px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
+    display: inline-block;
+    float: right;
+    margin-right: 70px;
+    padding: 0;
+    border: none;
+}
+.pin:hover,
+.pin:active,
+.pin-success {
+    background-image: url('./images/btn-pin-selected.png');
+    width: 30px;
+    height: 30px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
+    display: inline-block;
+}
