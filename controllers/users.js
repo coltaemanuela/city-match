@@ -15,7 +15,7 @@ var storage = gcloud.storage({
 var bucket = storage.bucket(`city-match.appspot.com`);
 
 //get public link of the image from Storage based on city name
-var getImageUrl = function(name){
+ function getImageUrl(name){
     var filePath = name + ".jpg";
     var citiesPath = 'cities/' + filePath;
     var storageFile = bucket.file(citiesPath);
@@ -23,12 +23,12 @@ var getImageUrl = function(name){
      action: 'read',
      expires: '03-09-2491'
    }).then(signedUrls => {
-     console.log(signedUrls[0]);
+    //  console.log(signedUrls[0]);
      return signedUrls[0]; 
    });
 }
 
-getImageUrl("Belfast");
+// getImageUrl("Belfast");
 
 // middleware to verify if user is authenticated. This will secure some routes
 function isAuthenticated (req, res, next) {
@@ -100,11 +100,24 @@ router.post('/login', function(req,res){
 
 router.post('/favorite', isAuthenticated,function(req, res){
     console.log('permission approved'+ req.user.uid);
+    var filePath = req.body.city + ".jpg";
+    var citiesPath = 'cities/' + filePath;
+    var storageFile = bucket.file(citiesPath);
+    var url = storageFile.getSignedUrl({
+     action: 'read',
+     expires: '03-09-2491'
+   }).then(signedUrls => {
+    //  console.log(signedUrls[0]);
     firebase.database().ref(`users/${req.user.uid}/favorites`).push({
         "city":req.body.city,
         "population": req.body.city_population,
-        "timestamp": Date.now()
+        "timestamp": Date.now(),
+        "imageUrl":signedUrls[0]
     });
+    //  return signedUrls[0]; 
+   });
+    // console.log("image url:",);    
+   
 });
 
 //todo: rename to /pinCity
