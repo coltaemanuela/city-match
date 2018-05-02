@@ -110,6 +110,4 @@ function hexToRgbA(hex){
     throw new Error('Bad Hex');
 }
 
-
-
 module.exports = router;

@@ -1,16 +1,10 @@
-.favorite-list{
-    background-image: url('./images/background.png');
-    background-repeat: no-repeat;
-    color: #fff;
-    background-size: cover;
+.fav-cities{
+  background-color: rgb(29, 66, 92);
+  color: #fff;
+  text-align: center;
 }
-.favorite-row{
-    background-color: rgba(29, 66, 92, 0.93);
-    position: sticky;
-    top: 0;
-    left: 0;
-    width: 721px;
-    height: 400px;
+.fav-cities h4{
+  vertical-align: middle;
 }
 .col-md-4{
     padding-left: 0px;
@@ -20,6 +14,7 @@
     color: #fff;
     box-shadow: 1px 1px;
     background-color: rgba(29, 66, 92, 0.93);
+    background-image: url('./images/ourcities.png');
 }
 .recommended-cities h3{
     color:#db4437;
@@ -27,13 +22,12 @@
 .axis {
     font: 10px sans-serif;
   }
-
-  .axis path,
-  .axis line {
+.axis path,
+.axis line {
     fill: none;
     stroke: #000;
     shape-rendering: crispEdges;
-  }
+}
  input[type="range"] {
    -webkit-appearance: none;
    background-color: lightgray;
@@ -130,4 +124,15 @@ button{
   width: 56px;
   height: 56px;
   border: none;
+}
+.recommended-cities{
+  background-color: #F1F6F9;
+}
+.survey-bottom{
+  background-image: url(./images/london-skyline.jpg);
+  background-color: #fff;
+  background-position-x: center;
+  height: 78px;
+  width: 100%;
+  background-size: contain;
 }
