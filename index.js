@@ -5,6 +5,8 @@ require('firebase/database');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var path = require('path');
+var gcloud = require('google-cloud');
+
 var app = express();
 var config = require('./config/config.json');
 var users = require('./controllers/users');
@@ -12,14 +14,19 @@ var users = require('./controllers/users');
 //setup view engine
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-
 app.use("/styles",express.static(__dirname + "/styles"));
-
 //firebase initiatialization
 firebase.initializeApp(config.firebase);
+
+//storage initialization
+var storage = gcloud.storage({
+  projectId:'city-match',
+  keyFilename: 'city match-420315c4b0a9.json'
+});
+var bucket = storage.bucket(`city-match.appspot.com`);
+
 //user session
 app.use(session(config.session));
-
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 

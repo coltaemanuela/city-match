@@ -10,11 +10,11 @@
     padding-left: 0px;
 }
 .profile-section-1{
-    height: 400px;
+    /* height: 400px; */
     color: #fff;
     box-shadow: 1px 1px;
     background-color: rgba(29, 66, 92, 0.93);
-    background-image: url('./images/ourcities.png');
+    /* background-image: url('./images/ourcities.png'); */
 }
 .recommended-cities h3{
     color:#db4437;
@@ -135,4 +135,12 @@ button{
   height: 78px;
   width: 100%;
   background-size: contain;
+}
+.item{
+  display: inline-block;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+.image-holder{
+  width: 30%;
 }
