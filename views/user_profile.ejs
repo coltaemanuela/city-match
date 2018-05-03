@@ -27,11 +27,10 @@
                       <div class="itemInner">  
                         <div class="image-holder">
                           <img alt="" src="<%= favorite.imageUrl %>" width="370" height="310">
-                          <div onclick="on()" class="city-name"> <%= favorite.city %> </div>
+                          <div onclick="on()" class="city-name"> <%= id %> </div>
                           <div class="hidden-details" id="hidden-details[]">
-                              <p><%= favorite.city %> <br/><%= favorite.population%></p>
-                          </div>   
-                                                                    
+                              <p><%= id %> <br/><%= favorite.population%></p>
+                          </div>                                                                       
                         </div>   
                       </div>
                     </div>
@@ -49,7 +48,7 @@
     <div class="recommended-cities">
       <div class="container">
         <h3>Recommeded cities</h3>
-        <% if(existing_recommendations.length === 0){%>
+        <% if(!details.recommendations || !details.favorites){%>
           <p><small><i>No recommedations yet. Take the quiz below to discover what are the suibale cities for you. </i></small></p>
       </div>         
       <form method="post" action="/users/recommendations">
@@ -128,16 +127,22 @@
           <button type="submit" class="btn">Submit</button>          
         </div>
       </form>
-      <% }else{%>
-      <%} %>
+      <% }else { 
+        Object.keys(details.recommendations).forEach(function (r) {
+          var rec = details.recommendations[r] %>
+          <div class="itemsHolder col-md-3">
+            <div class="items clearfix">
+            <div class="item">
+              <div class="itemInner">  
+                <div class="image-holder">
+                  <img alt="" src="<%= rec.imageUrl %>" width="370" height="310">
+                  <div class="city-name"> <%= r %> </div>                                                                                   
+                </div>   
+              </div>
+            </div>
+          </div>
+        </div>
+        <%});
+      } %>
     </div>
-        
-    <!-- <script>
-      function on() {
-            document.getElementById("hidden-details[]").style.display = "block";
-        }    
-        function off() {
-            document.getElementById("hidden-details[]").style.display = "none";
-        }
-      </script>      -->
 </body>

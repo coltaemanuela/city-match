@@ -3,8 +3,8 @@ var firebase = require('firebase');
 var gcloud = require('google-cloud');
 var config = require('../config/config.json');
 var utils= require('../utils.js');
+var querybase = require('querybase');
 var router = express.Router();
-var existing_recommendations =[];
 var auth_user = {};
 
 //storage initialization
@@ -13,22 +13,7 @@ var storage = gcloud.storage({
     keyFilename: 'city match-420315c4b0a9.json'
   });
 var bucket = storage.bucket(`city-match.appspot.com`);
-
-//get public link of the image from Storage based on city name
- function getImageUrl(name){
-    var filePath = name + ".jpg";
-    var citiesPath = 'cities/' + filePath;
-    var storageFile = bucket.file(citiesPath);
-    var url = storageFile.getSignedUrl({
-     action: 'read',
-     expires: '03-09-2491'
-   }).then(signedUrls => {
-    //  console.log(signedUrls[0]);
-     return signedUrls[0]; 
-   });
-}
-
-// getImageUrl("Belfast");
+var existing_recommendations =[];
 
 // middleware to verify if user is authenticated. This will secure some routes
 function isAuthenticated (req, res, next) {
@@ -89,35 +74,47 @@ router.post('/login', function(req,res){
     firebase.auth().signInWithEmailAndPassword(req.body.email, req.body.password).then(function(data) {
         firebase.database().ref(`users/${data.uid}`).once('value')
         .then(function(details) {
-            console.log(firebase.auth().currentUser.email,firebase.auth().currentUser.uid, details.val());      
+            // console.log(firebase.auth().currentUser.email,firebase.auth().currentUser.uid, details.val());      
             res.render('user_profile.ejs', {
-                details: details.val(),
-                existing_recommendations: existing_recommendations
+                details: details.val()
             });
         });
     });
 });
 
 router.post('/favorite', isAuthenticated,function(req, res){
-    console.log('permission approved'+ req.user.uid);
+    // console.log('permission approved'+ req.user.uid);
     var filePath = req.body.city + ".jpg";
     var citiesPath = 'cities/' + filePath;
     var storageFile = bucket.file(citiesPath);
-    var url = storageFile.getSignedUrl({
-     action: 'read',
-     expires: '03-09-2491'
-   }).then(signedUrls => {
-    //  console.log(signedUrls[0]);
-    firebase.database().ref(`users/${req.user.uid}/favorites`).push({
+    var url = storageFile.getSignedUrl({ action: 'read',expires: '03-09-2491'}).then(signedUrls => {
+    firebase.database().ref(`users/${req.user.uid}/favorites/${req.body.city}`).update({
         "city":req.body.city,
         "population": req.body.city_population,
         "timestamp": Date.now(),
         "imageUrl":signedUrls[0]
     });
-    //  return signedUrls[0]; 
-   });
-    // console.log("image url:",);    
-   
+   });  
+
+   firebase.database().ref('cities').orderByChild('Population_2016').startAt(req.body.city_population - 10000).limitToFirst(2).on("value", function(snapshot){
+    var recommendations = snapshot.val();
+    firebase.database().ref('cities').orderByChild('Average_Weekly_Workplace_Earnings_2017').startAt(req.body.earnings- 20).limitToFirst(2).on("value", function(snapshot1){
+        var recommendations1 = snapshot1.val();
+        var final_recommendations = Object.assign(recommendations, recommendations1);
+        Object.keys(final_recommendations).forEach(function(id){
+            if(id != req.body.city){
+                existing_recommendations.push(final_recommendations[id]);
+                bucket.file( 'cities/'+ id + ".jpg" ).getSignedUrl({ action: 'read',expires: '03-09-2491'}).then(signedUrls => {
+                    firebase.database().ref(`users/${req.user.uid}/recommendations/${id}`).update({
+                        "imageUrl":signedUrls[0],
+                        "Average_Weekly_Workplace_Earnings_2017":final_recommendations[id]["Average_Weekly_Workplace_Earnings_2017"],
+                        "Population_2016":final_recommendations[id]["Population_2016"]
+                    });
+                });
+            }
+        });
+    });       
+});
 });
 
 //todo: rename to /pinCity
