@@ -1,0 +1,50 @@
+<%- include partials/head.ejs %>
+<%- include partials/navbar.ejs %>
+<link rel="stylesheet" type="text/css" href="../../styles/compare.css">
+
+<div class="container">
+    <div class="row">
+      <h1>City Comparison Tool</h1>
+    </div>
+    <div class="row">
+      <% if(Object.keys(cities).length === 0 && cities.constructor === Object) { %>
+        <p>No data: please mark some cities as favorites or pin them for comparison.</p>
+      <% } else { %>
+        <div class="table-responsive">
+          <table class="table table-sm table-striped table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">City</th>
+                <th scope="col">Population</th>
+                <th scope="col">Employment rate (%)</th>
+                <th scope="col">Avg. weekly earnings (£)</th>
+                <th scope="col">Private / Public sector employment ratio</th>
+                <th scope="col">Housing affordability ratio</th>
+                <th scope="col">Mean house price (£)</th>
+                <th scope="col">CO2 emissions per capita (tons)</th>
+                <th scope="col">Ultra fast broadband (%)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% Object.keys(cities).forEach(function(city){ %>
+                <tr>
+                  <th scope="row"><%= city %></th>
+                  <td><%= cities[city].Population_2016 %></td>
+                  <td><%= cities[city].Employment_Rate_2017 %></td>
+                  <td><%= cities[city].Average_Weekly_Workplace_Earnings_2017 %></td>
+                  <td><%= cities[city].Ratio_of_Private_to_Public_Sector_Employment_2016 %></td>
+                  <td><%= parseFloat(cities[city].Housing_Affordability_Ratio_2017).toFixed(2); %></td>
+                  <td><%= parseFloat(cities[city].Mean_house_price_2017).toFixed(2); %></td>
+                  <td><%= parseFloat(cities[city].CO2_Emissions_per_Capita_2015_tons).toFixed(2); %></td>
+                  <td><%= cities[city].Ultrafast_Broadband_2017 %></td>
+                </tr>
+              <%  }); %>
+            </tbody>
+          </table>
+        </div>
+      <% } %>
+    </div>  
+</div>
+<script type="text/javascript">
+  // d3 code here
+</script>

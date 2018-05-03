@@ -10,6 +10,7 @@ var gcloud = require('google-cloud');
 var app = express();
 var config = require('./config/config.json');
 var users = require('./controllers/users');
+var compare = require('./controllers/compare');
 
 //setup view engine
 app.set('views', path.join(__dirname, 'views'));
@@ -32,6 +33,8 @@ app.use(bodyParser.json());
 
 //routes
 app.use('/users', users);
+app.use('/compare', compare);
+
 //homepage
 app.get('/', function (req, res) {
     res.render('index');
