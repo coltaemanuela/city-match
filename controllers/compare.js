@@ -16,9 +16,12 @@ function isAuthenticated (req, res, next) {
 
 //gets favorite city names only
 function mapFavorites(fav_cities) {
-    var ret = Object.keys(fav_cities.val()).map(function(key){
-        return fav_cities.val()[key].city;
-    });
+    var ret = [];
+    if(fav_cities.val() != null) {
+        ret = Object.keys(fav_cities.val()).map(function(key){
+            return fav_cities.val()[key].city;
+        });
+    }
     return ret;
 }
 
