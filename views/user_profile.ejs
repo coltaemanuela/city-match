@@ -3,14 +3,17 @@
 <link rel="stylesheet" type="text/css" href="../../styles/user_profile.css">
 <link href="https://fonts.googleapis.com/css?family=PT+Sans:400,700" rel="stylesheet">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <body>
   <div class="wrapper">
     <div class="row profile-section-2">                    
       <div class="col-md-2 fav-cities">
-        <h4><%= details.username %></h4>
-        <p><%= details.city%></p>
-        <h4>Your favorite cities</h4>
+        <div class="user-details">
+            <h4><%= details.username %></h4>
+            <p><%= details.city%></p>
+            <h4>Your favorite cities</h4>
+        </div>       
       </div>
       <div class="col-md-10" id="block">
         <div class="favorite-list">
@@ -20,19 +23,24 @@
                   var favorite = details.favorites[id] %>
                   <div class="itemsHolder col-md-3">
                     <div class="items clearfix">
-                  <div class="item">
-                    <div class="itemInner">
-                      <div class="image-holder">
-                        <img alt="" src="<%= favorite.imageUrl %>" width="370" height="310">
-                      </div>                        
+                    <div class="item">
+                      <div class="itemInner">  
+                        <div class="image-holder">
+                          <img alt="" src="<%= favorite.imageUrl %>" width="370" height="310">
+                          <div onclick="on()" class="city-name"> <%= favorite.city %> </div>
+                          <div class="hidden-details" id="hidden-details[]">
+                              <p><%= favorite.city %> <br/><%= favorite.population%></p>
+                          </div>   
+                                                                    
+                        </div>   
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            <% }) %>
-            <% } else { %>
-              <p>No favorite cities to display.</p>
-            <%}%>
+              <% }) %>
+              <% } else { %>
+                <p>No favorite cities to display.</p>
+              <%}%>
           </div>
         </div>
       </div>
@@ -123,4 +131,13 @@
       <% }else{%>
       <%} %>
     </div>
+        
+    <!-- <script>
+      function on() {
+            document.getElementById("hidden-details[]").style.display = "block";
+        }    
+        function off() {
+            document.getElementById("hidden-details[]").style.display = "none";
+        }
+      </script>      -->
 </body>

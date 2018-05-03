@@ -144,3 +144,53 @@ button{
 .image-holder{
   width: 30%;
 }
+.user-details{
+  margin: 0 auto;
+  margin-top: 70%;  
+}
+.city-name {
+  position: absolute;
+  bottom: 10px;
+  height: 40px;
+  width: 370px;
+  text-align: center;
+  vertical-align: middle;
+  background-color: rgba(29, 66, 92,0.9);
+  color: #fff;
+  font-weight: 700;
+
+}
+#text{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 20px;
+  color: white;
+  transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  width: 370px;
+  height: 370px;
+}
+#overlay {
+  position: relative;
+  display: none;
+  width:370px;
+  height: 370px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(29, 66, 92,0.5);
+  z-index: 2;
+  cursor: pointer;
+}
+.hidden-details{
+  background-color: rgba(29, 66, 92,0.5);
+  height: 300px;
+  position: absolute;
+  margin-top: -310px;
+  width: 370px;
+  color: #fff;
+  text-align: center;
+  display: none;
+}
