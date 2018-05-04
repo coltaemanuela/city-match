@@ -14,7 +14,7 @@
                     <input type="hidden" name="city" value= <%= city%> />
                     <input type="hidden" name="city_population" value= <%= details.Population_2016%> />
                     <input type="hidden" name="earnings" value= <%= details.Average_Weekly_Workplace_Earnings_2017%> />
-                    
+
                     <button
                      class="favorite"></button>
                 </form>
@@ -39,7 +39,8 @@
         <h3>Reviews</h3>
             <div></div>
             <div>
-                <form id="review_form"  name="review_form" method="post" action="/users/review">
+                <form id="review_form"  name="review_form" method="post" action="/cities/">
+                    <input type="hidden" name="city" value= <%= city%> />
                     <div class="form-group">
                         <input type="text" class="form-control input-block" name="review_title" placeholder="Review Title" autofocus="">
                     </div>
@@ -89,7 +90,7 @@
 
         }
     });
-    $('#favorite-button').removeClass().addClass('.favorite-success');
+    // $('#favorite-button').removeClass().addClass('.favorite-success');
   }
 
 

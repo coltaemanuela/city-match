@@ -49,7 +49,8 @@ router.post('/register', function(req, res) {
                 'email': req.body.email,
                 'username': req.body.username?req.body.username:"",
                 'city':req.body.city? req.body.city: "",
-                'age': req.body.age?req.body.age: 18
+                'age': req.body.age?req.body.age: 18,
+                  "form_completion":false
             });
         }).then(function (data) {
             //ask new user to login
@@ -74,7 +75,7 @@ router.post('/login', function(req,res){
     firebase.auth().signInWithEmailAndPassword(req.body.email, req.body.password).then(function(data) {
         firebase.database().ref(`users/${data.uid}`).once('value')
         .then(function(details) {
-            // console.log(firebase.auth().currentUser.email,firebase.auth().currentUser.uid, details.val());      
+            // console.log(firebase.auth().currentUser.email,firebase.auth().currentUser.uid, details.val());
             res.render('user_profile.ejs', {
                 details: details.val()
             });
@@ -94,7 +95,7 @@ router.post('/favorite', isAuthenticated,function(req, res){
         "timestamp": Date.now(),
         "imageUrl":signedUrls[0]
     });
-   });  
+   });
 
    firebase.database().ref('cities').orderByChild('Population_2016').startAt(req.body.city_population - 10000).limitToFirst(2).on("value", function(snapshot){
     var recommendations = snapshot.val();
@@ -113,7 +114,7 @@ router.post('/favorite', isAuthenticated,function(req, res){
                 });
             }
         });
-    });       
+    });
 });
 });
 
@@ -140,11 +141,18 @@ router.post('/review', isAuthenticated,function(req, res){
 });
 
 router.post('/recommendations', isAuthenticated, function(req, res){
-    var spare_time= req.body.spare-time;
+    var spare_time= req.body.spare_time;
     var workplace = req.body.workplace;
     var career = req.body.career;
     var risk = req.body.risk;
     var color = utils.hexToRgbA(req.body.color);
+    console.log(req.body, color);
+
+    firebase.database().ref(`users/${req.user.uid}`).update({
+      "form_completion":true
+    });
+  //update user profle with form_completion:true
+
 
     console.log('permission approved'+ req.user.uid);
 });
