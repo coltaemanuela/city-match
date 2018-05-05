@@ -5,11 +5,14 @@
 .axis text {
     font-size: 12;
 }
+.y.axis text {
+    fill: #000;
+}
 .y0.axis text {
-    fill: #16135f;
+    fill: #1d425c;
 }
 .y1.axis text {
-    fill: #c70000;
+    fill: #c53e32;
 }
 .axis path,
 .axis line {
@@ -17,15 +20,32 @@
   stroke: #000;
   shape-rendering: crispEdges;
 }
-.bar1 {
-  fill: #16135f;
+.bar1,
+.serie.popNonUK rect,
+.legend text.popNonUK {
+  fill: #1d425c;
 }
-.bar2 {
-  fill: #c70000;
+.legend line.popNonUK {
+    stroke: #1d425c;
+}
+.bar2, 
+.serie.popUK rect,
+.legend text.popUK {
+  fill: #c53e32;
+}
+.legend line.popUK {
+    stroke: #c53e32;
+}
+.legend text {
+    font-size: 12;
 }
 .x.axis path {
   display: none;
 }
 .city text {
     font-size: 12;
+}
+.table-data {
+    padding-left: 5px;
+    padding-right: 5px;
 }

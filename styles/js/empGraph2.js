@@ -1,10 +1,10 @@
-var renderEmp2 = function(cities) {
+var renderEmp = function(cities) {
 	//SVG setup
 	var margin = { top: 40, right: 100, bottom: 70, left: 100 };
 	var width = 650;
 	var height = 270;
 
-	var svg = d3.select('body #employmentSvg')
+	var svg = d3.select('body #employmentSvg2')
 		.append('svg')
 		.attr('width', width + margin.left + margin.right)
 		.attr('height', height + margin.top + margin.bottom) 
@@ -25,7 +25,7 @@ var renderEmp2 = function(cities) {
 
 	var y1 = d3.scaleLinear()
 		.domain([0, d3.max(cities, function(c) {
-			return c.Average_Weekly_Workplace_Earnings_2017
+			return c.Ratio_of_Private_to_Public_Sector_Employment_2016
 		})])
 		.range([height, 0])
 
@@ -36,8 +36,8 @@ var renderEmp2 = function(cities) {
 			Class: "employmentRate"
 		},
 		{
-			Text: "Avg. weekly earnings",
-			Class: "avgWeeklyEarnings"
+			Text: "Private/public employment ratio",
+			Class: "privPubEmpRatio"
 		}
 	];
 		
@@ -74,7 +74,7 @@ var renderEmp2 = function(cities) {
 		.attr("x", -height/2)
 		.attr("transform", "rotate(-90)")
 		.attr("text-anchor", "middle")
-		.text("Avg. weekly earnings (£)");
+		.text("Private/public employment ratio");
 
 	//Employment rate
 	var employment = svg.selectAll(".city." + legendData[0].Class)
@@ -101,30 +101,30 @@ var renderEmp2 = function(cities) {
 		.attr("opacity", 1)
 		.text(function(d) { return d.Employment_Rate_2017; });
 	
-	//Average weekly earnings
-	var avgEarnings = svg.selectAll(".city." + legendData[1].Class)
+	//Private / public employment ratio
+	var privPubEmployment = svg.selectAll(".city." + legendData[1].Class)
 		.data(cities)
 		.enter()
 		.append("g")
 		.attr("class", function(d) { return "city " + legendData[1].Class + " " + d.city; })
 		.attr("transform", function(d, i) {
-			return "translate(" + (x(d.city) + x.bandwidth()/2) + ", " + y1(d.Average_Weekly_Workplace_Earnings_2017) + ")";
+			return "translate(" + (x(d.city) + x.bandwidth()/2) + ", " + y1(d.Ratio_of_Private_to_Public_Sector_Employment_2016) + ")";
 		});
 	//bar
 	//placement based on : https://github.com/liufly/Dual-scale-D3-Bar-Chart
-	avgEarnings.append("rect")
+	privPubEmployment.append("rect")
 		.attr("class", "bar2")
 		.attr("width", x.bandwidth()/2)
-		.attr("height", function(d,i,j) { return height - y1(d.Average_Weekly_Workplace_Earnings_2017); });
+		.attr("height", function(d,i,j) { return height - y1(d.Ratio_of_Private_to_Public_Sector_Employment_2016); });
 	//label
-	avgEarnings.append("text")
+	privPubEmployment.append("text")
 		.attr("x", function(d) { return x.bandwidth()/4; })
 		.attr("y", -3)
 		.attr("font-family", "sans-serif")
 		.attr("text-anchor", "middle")
 		.attr("fill", "black")
 		.attr("opacity", 1)
-		.text(function(d) { return d.Average_Weekly_Workplace_Earnings_2017.toLocaleString("en-GB") });
+		.text(function(d) { return d.Ratio_of_Private_to_Public_Sector_Employment_2016; });
 }
 
 //Wraps d3 ticks from the x axis in tspans so that they can span multiple lines

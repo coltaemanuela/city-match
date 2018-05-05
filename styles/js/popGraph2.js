@@ -1,10 +1,11 @@
-var renderBro = function(cities) {
+//from https://bl.ocks.org/mbostock/3886394
+var renderPop2 = function(cities) {
 	//SVG setup
-	var margin = { top: 40, right: 50, bottom: 70, left: 50 };
-	var width = 400;
+	var margin = { top: 40, right: 100, bottom: 70, left: 100 };
+	var width = 650;
 	var height = 270;
 
-	var svg = d3.select('body #broadbandSvg')
+	var svg = d3.select('body #immigrationSvg')
 		.append('svg')
 		.attr('width', width + margin.left + margin.right)
 		.attr('height', height + margin.top + margin.bottom) 
@@ -18,19 +19,7 @@ var renderBro = function(cities) {
 		.padding(0.05);
 		
 	var y = d3.scaleLinear()
-		.domain([0, d3.max(cities, function(c) {
-				return c.Ultrafast_Broadband_2017;
-		})])
 		.range([height, 0]);
-
-
-	//Data for the legend
-	var legendData = [
-		{
-			Text: "Ultra-fast broadband",
-			Class: "broadband"
-		}
-	];
 		
 	//Add the x axis
 	svg.append("g")
@@ -43,40 +32,65 @@ var renderBro = function(cities) {
 	//Add the y axis
 	svg.append("g")
 		.attr("class", "y axis")
-		.call(d3.axisLeft(y))
+		.call(d3.axisLeft(y).ticks(10, "%"))
 		//Add a label for the y axis
 		.append("text")
 		.attr("class", "axis-label")
-		.attr("y", -35)
+		.attr("y", -75)
 		.attr("x", -height/2)
 		.attr("transform", "rotate(-90)")
 		.attr("text-anchor", "middle")
-		.text("Ultra-fast broadband (%)");
+		.text("Population (%)");
 
-	//Ultra-fast broadband
-	var broadband = svg.selectAll(".city." + legendData[0].Class)
-		.data(cities)
+	//Data for the legend
+	var legendData = {
+		Population_UK: {
+			class: "popUK",
+			text: "UK"
+		},
+		Population_Non_UK : {
+			class: "popNonUK",
+			text: "Non-UK"
+		}
+	};
+
+	var stack = d3.stack()
+    .offset(d3.stackOffsetExpand);
+
+ 	var columns = [ "Population_UK", "Population_Non_UK"];
+
+	var serie = svg.selectAll(".serie")
+		.data(stack.keys(columns)(cities))
 		.enter()
 		.append("g")
-		.attr("class", function(d) { return "city " + legendData[0].Class + " " + d.city; })
-		.attr("transform", function(d, i) { 
-			return "translate(" + x(d.city) + ", " + y(d.Ultrafast_Broadband_2017) + ")";
-		});
-	//bar
-	//placement based on : https://github.com/liufly/Dual-scale-D3-Bar-Chart
-	broadband.append("rect")
-		.attr("class", "bar1")
-		.attr("width", x.bandwidth())
-		.attr("height", function(d,i,j) { return height - y(d.Ultrafast_Broadband_2017); });
-	//label
-	broadband.append("text")
-		.attr("x", function(d) { return x.bandwidth()/2; })
-		.attr("y", -3)
-		.attr("font-family", "sans-serif")
-		.attr("text-anchor", "middle")
-		.attr("fill", "black")
-		.attr("opacity", 1)
-		.text(function(d) { return d.Ultrafast_Broadband_2017; });
+		.attr("class", function(d) { return "serie " + legendData[d.key].class });
+
+	serie.selectAll("rect")
+		.data(function(d) { return d; })
+		.enter()
+		.append("rect")
+		.attr("x", function(d) { return x(d.data.city); })
+		.attr("y", function(d) { return y(d[1]); })
+		.attr("height", function(d) { return y(d[0]) - y(d[1]); })
+		.attr("data-val", function(d) { return d[0] - d[1]; })
+		.attr("width", x.bandwidth());
+
+  var legend = serie.append("g")
+      .attr("class", "legend")
+      .attr("transform", function(d) { var d = d[d.length - 1]; return "translate(" + (x(d.data.city) + x.bandwidth()) + "," + ((y(d[0]) + y(d[1])) / 2) + ")"; });
+
+  legend.append("line")
+      .attr("x1", -6)
+      .attr("x2", 6)
+      .attr("class", function(d) { return legendData[d.key].class; });
+
+  legend.append("text")
+      .attr("x", 9)
+      .attr("dy", "0.35em")
+      .attr("fill", "#000")
+      .style("font", "sans-serif")
+      .text(function(d) { return legendData[d.key].text; })
+      .attr("class", function(d) { return legendData[d.key].class; });
 }
 
 //Wraps d3 ticks from the x axis in tspans so that they can span multiple lines

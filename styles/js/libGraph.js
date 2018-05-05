@@ -1,10 +1,10 @@
-var renderBro = function(cities) {
+var renderLib = function(cities) {
 	//SVG setup
 	var margin = { top: 40, right: 50, bottom: 70, left: 50 };
 	var width = 400;
 	var height = 270;
 
-	var svg = d3.select('body #broadbandSvg')
+	var svg = d3.select('body #librariesSvg')
 		.append('svg')
 		.attr('width', width + margin.left + margin.right)
 		.attr('height', height + margin.top + margin.bottom) 
@@ -19,7 +19,7 @@ var renderBro = function(cities) {
 		
 	var y = d3.scaleLinear()
 		.domain([0, d3.max(cities, function(c) {
-				return c.Ultrafast_Broadband_2017;
+				return c.Public_libraries;
 		})])
 		.range([height, 0]);
 
@@ -27,8 +27,8 @@ var renderBro = function(cities) {
 	//Data for the legend
 	var legendData = [
 		{
-			Text: "Ultra-fast broadband",
-			Class: "broadband"
+			Text: "Number of public libraries",
+			Class: "libraries"
 		}
 	];
 		
@@ -51,32 +51,32 @@ var renderBro = function(cities) {
 		.attr("x", -height/2)
 		.attr("transform", "rotate(-90)")
 		.attr("text-anchor", "middle")
-		.text("Ultra-fast broadband (%)");
+		.text("Public libraries (#)");
 
 	//Ultra-fast broadband
-	var broadband = svg.selectAll(".city." + legendData[0].Class)
+	var libraries = svg.selectAll(".city." + legendData[0].Class)
 		.data(cities)
 		.enter()
 		.append("g")
 		.attr("class", function(d) { return "city " + legendData[0].Class + " " + d.city; })
 		.attr("transform", function(d, i) { 
-			return "translate(" + x(d.city) + ", " + y(d.Ultrafast_Broadband_2017) + ")";
+			return "translate(" + x(d.city) + ", " + y(d.Public_libraries) + ")";
 		});
 	//bar
 	//placement based on : https://github.com/liufly/Dual-scale-D3-Bar-Chart
-	broadband.append("rect")
-		.attr("class", "bar1")
+	libraries.append("rect")
+		.attr("class", "bar2")
 		.attr("width", x.bandwidth())
-		.attr("height", function(d,i,j) { return height - y(d.Ultrafast_Broadband_2017); });
+		.attr("height", function(d,i,j) { return height - y(d.Public_libraries); });
 	//label
-	broadband.append("text")
+	libraries.append("text")
 		.attr("x", function(d) { return x.bandwidth()/2; })
 		.attr("y", -3)
 		.attr("font-family", "sans-serif")
 		.attr("text-anchor", "middle")
 		.attr("fill", "black")
 		.attr("opacity", 1)
-		.text(function(d) { return d.Ultrafast_Broadband_2017; });
+		.text(function(d) { return d.Public_libraries; });
 }
 
 //Wraps d3 ticks from the x axis in tspans so that they can span multiple lines

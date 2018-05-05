@@ -1,6 +1,6 @@
 var renderPop = function(cities) {
 	//SVG setup
-	var margin = { top: 40, right: 100, bottom: 40, left: 100 };
+	var margin = { top: 40, right: 100, bottom: 70, left: 100 };
 	var width = 650;
 	var height = 270;
 

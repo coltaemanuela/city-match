@@ -3,6 +3,12 @@
 <link rel="stylesheet" type="text/css" href="../../styles/compare.css">
 <script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script>
 <script type="text/javascript" src="../../styles/js/popGraph.js"></script>
+<script type="text/javascript" src="../../styles/js/popGraph2.js"></script>
+<script type="text/javascript" src="../../styles/js/empGraph.js"></script>
+<script type="text/javascript" src="../../styles/js/empGraph2.js"></script>
+<script type="text/javascript" src="../../styles/js/houGraph.js"></script>
+<script type="text/javascript" src="../../styles/js/broGraph.js"></script>
+<script type="text/javascript" src="../../styles/js/libGraph.js"></script>
 
 <script type="text/javascript">
   var cities = <%- JSON.stringify(cities) %>;
@@ -11,13 +17,13 @@
 <div class="container">
     <div class="row">
       <div class="col-sm-12">
-        <h1>City Comparison Tool</h1>
+        <h1>Your favorite cities toe to toe</h1>
       </div>
     </div>
     <div class="row">
-      <div class="col-sm-12">
+      <div class="col-sm-12 table-data">
         <% if(cities.length === 0) { %>
-          <p>No data: please mark some cities as favorites or pin them for comparison.</p>
+          <p>No data: please mark some cities as favorites to compare them.</p>
         <% } else { %>
           <div class="table-responsive">
             <table class="table table-sm table-striped table-bordered">
@@ -71,39 +77,44 @@
       <div class="col-sm-12">
         <h2>Population UK &amp; non-UK (%)</h2>
         <!-- stacked bars -->
-        <div id="inmSvg"></div>
+        <div id="immigrationSvg"></div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <h2>Ultra-fast broadband</h2>
+        <div id="broadbandSvg"></div>
+      </div>
+      <div class="col-sm-6">
+        <h2>Number of public libraries</h2>
+        <div id="librariesSvg"></div>
       </div>
     </div>
     <div class="row">
       <div class="col-sm-12">
-        <h2>Employment rate &amp; Avg. weekly earnings</h2>
-        <!-- bars dual scale -->
+        <h2>Employment rate &amp; avg. weekly earnings</h2>
         <div id="employmentSvg"></div>
       </div>
     </div>
     <div class="row">
       <div class="col-sm-12">
-        <h2>Unemployment &amp; Private/public employment ratio</h2>
-        <!-- stacked bars -->
-        <div id="unemploymentSvg"></div>
+        <h2>Employment rate &amp; private/public employment ratio</h2>
+        <div id="employmentSvg2"></div>
       </div>
     </div>
     <div class="row">
       <div class="col-sm-12">
         <h2>Housing affordability ratio &amp; mean house price</h2>
-        <!-- bars dual scale -->
-        <div id="housingSvg"></div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-sm-12">
-        <h2>Ultra-fast broadband</h2>
-        <!-- bars -->
-        <div id="broadbandSvg"></div>
+        <div id="housingSvg">asdfasdf</div>
       </div>
     </div>
 </div>
 <script type="text/javascript">
-  // calls to d3 functions here
   renderPop(cities);
+  renderEmp(cities);
+  renderEmp2(cities);
+  renderHou(cities);
+  renderBro(cities);
+  renderLib(cities);
+  renderPop2(cities);
 </script>
