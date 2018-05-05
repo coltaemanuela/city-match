@@ -7,7 +7,7 @@
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <body>
   <div class="wrapper">
-    <div class="row profile-section-2">
+    <div class="row profile-section-2" style="border:50px solid rgb(29, 66, 92);background-color: rgb(29, 66, 92);">
       <div class="col-md-2 fav-cities">
         <div class="user-details">
             <h4><%= details.username %></h4>
@@ -47,7 +47,7 @@
         <!-- Recommended cities section -->
     <div class="recommended-cities">
     <% if(!details.form_completion){%>
-      <div class="col-md-6" style="display:inline-block;float:left;">
+      <div class="col-md-4" style="display:inline-block;float:left;background-color: #fff;padding-top:40px;">
       <div class="container">
         <h3>Recommeded cities</h3>
           <p><small><i>Take the quiz below increase the cuuracy of the cities recommendations.</i></small></p>
@@ -138,13 +138,17 @@
       <% } if(details.recommendations){
         Object.keys(details.recommendations).forEach(function (r) {
           var rec = details.recommendations[r] %>
-          <div class="itemsHolder col-md-6" style="display:inline-block;float: right;">
-            <div class="items clearfix">
-            <div class="item">
+          <div class="itemsHolder col-md-4" style="display:inline-block;float:left;margin-right:-15px;">
+            <div class="items clearfix recommended-area">
+              <div class="recommended-data">
+                <p>Population:  <%=rec.Population_2016%></p>
+                <p>Average weekly workplace earnings: £<%= rec.Average_Weekly_Workplace_Earnings_2017%></p>
+              </div>
+            <div class="item recommended-item">
               <div class="itemInner">
                 <div class="image-holder">
-                  <img alt="" src="<%= rec.imageUrl %>" width="370" height="310">
-                  <div class="city-name"> <%= r %> </div>
+                  <img alt="" src="<%= rec.imageUrl %>" width="290" height="240">
+                  <div class="city-name recommended-name"> <%= r %> </div>
                 </div>
               </div>
             </div>
