@@ -1,0 +1,14 @@
+<%- include partials/head.ejs %>
+<%- include partials/navbar.ejs %>
+
+<link rel="stylesheet" type="text/css" href="../../styles/auth.css">
+<body>
+<div>
+<% if(filteredCity)
+{Object.keys(filteredCity).forEach(function (id) {
+var city = filteredCity[id] %>
+<p><%= city %> <br/><%= city.population%></p>
+<%})
+}%>
+</div>
+</body>

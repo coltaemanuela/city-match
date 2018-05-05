@@ -11,6 +11,7 @@ var app = express();
 var config = require('./config/config.json');
 var users = require('./controllers/users');
 var compare = require('./controllers/compare');
+var filters = require('./controllers/filters');
 
 //setup view engine
 app.set('views', path.join(__dirname, 'views'));
@@ -34,6 +35,7 @@ app.use(bodyParser.json());
 //routes
 app.use('/users', users);
 app.use('/compare', compare);
+app.use('/filters',filters);
 
 //homepage
 app.get('/', function (req, res) {
