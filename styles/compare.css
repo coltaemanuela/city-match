@@ -1,0 +1,31 @@
+/* #populationSvg */
+.axis .axis-label {
+    font-size: 14;
+}
+.axis text {
+    font-size: 12;
+}
+.y0.axis text {
+    fill: #16135f;
+}
+.y1.axis text {
+    fill: #c70000;
+}
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+.bar1 {
+  fill: #16135f;
+}
+.bar2 {
+  fill: #c70000;
+}
+.x.axis path {
+  display: none;
+}
+.city text {
+    font-size: 12;
+}
