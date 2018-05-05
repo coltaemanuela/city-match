@@ -38,12 +38,15 @@ function buildCities(cities, filter) {
             var c = {};
             c.city = k;
             c.Population_2016 = cities.val()[k].Population_2016;
+            c.Population_UK = cities.val()[k].Population_UK;
+            c.Population_Non_UK = cities.val()[k]["Population_Non-UK"];
             c.Employment_Rate_2017 = cities.val()[k].Employment_Rate_2017;
             c.Average_Weekly_Workplace_Earnings_2017 = cities.val()[k].Average_Weekly_Workplace_Earnings_2017;
             c.Ratio_of_Private_to_Public_Sector_Employment_2016 = cities.val()[k].Ratio_of_Private_to_Public_Sector_Employment_2016;
-            c.Housing_Affordability_Ratio_2017 = parseFloat(cities.val()[k].Housing_Affordability_Ratio_2017).toFixed(2);
-            c.Mean_house_price_2017 = parseFloat(cities.val()[k].Mean_house_price_2017).toFixed(2);
-            c.CO2_Emissions_per_Capita_2015_tons = parseFloat(cities.val()[k].CO2_Emissions_per_Capita_2015_tons).toFixed(2);
+            c.Housing_Affordability_Ratio_2017 = Math.round(parseFloat(cities.val()[k].Housing_Affordability_Ratio_2017)*100)/100;
+            c.Mean_house_price_2017 = Math.round(parseFloat(cities.val()[k].Mean_house_price_2017)*100)/100;
+            c.CO2_Emissions_per_Capita_2015_tons = Math.round(parseFloat(cities.val()[k].CO2_Emissions_per_Capita_2015_tons)*100)/100;
+            c.Public_libraries = cities.val()[k].Public_libraries;
             c.Ultrafast_Broadband_2017 = cities.val()[k].Ultrafast_Broadband_2017;
             ret.push(c);
         }
