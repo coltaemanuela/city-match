@@ -12,6 +12,7 @@
 
 <script type="text/javascript">
   var cities = <%- JSON.stringify(cities) %>;
+  var citiesObj = <%- JSON.stringify(citiesObj) %>;
 </script>
 
 <div class="container">
@@ -29,37 +30,79 @@
             <table class="table table-sm table-striped table-bordered">
               <thead>
                 <tr>
-                  <th scope="col">City</th>
-                  <th scope="col">Total population</th>
-                  <th scope="col">Population UK (%)</th>
-                  <th scope="col">Population non-UK (%)</th>
-                  <th scope="col">CO2 emissions per capita (tons)</th>
-                  <th scope="col">Number of public libraries</th>
-                  <th scope="col">Ultra-fast broadband (%)</th>
-                  <th scope="col">Employment rate (%)</th>
-                  <th scope="col">Avg. weekly earnings (£)</th>
-                  <th scope="col">Private / Public sector employment ratio</th>
-                  <th scope="col">Housing affordability ratio</th>
-                  <th scope="col">Mean house price (£)</th>
+                  <th scope="col"></th>
+                  <% citiesObj.city.forEach(function(city) {%>
+                    <th scope="col"><%= city %></th>
+                  <% });%>
                 </tr>
               </thead>
               <tbody>
-                <% cities.forEach(function(city){ %>
-                  <tr>
-                    <th scope="row"><%= city.city %></th>
-                    <td><%= city.Population_2016 %></td>
-                    <td><%= city.Population_UK %></td>
-                    <td><%= city.Population_Non_UK %></td>
-                    <td><%= city.CO2_Emissions_per_Capita_2015_tons %></td>
-                    <td><%= city.Public_libraries %></td>
-                    <td><%= city.Ultrafast_Broadband_2017 %></td>
-                    <td><%= city.Employment_Rate_2017 %></td>
-                    <td><%= city.Average_Weekly_Workplace_Earnings_2017 %></td>
-                    <td><%= city.Ratio_of_Private_to_Public_Sector_Employment_2016 %></td>
-                    <td><%= city.Housing_Affordability_Ratio_2017 %></td>
-                    <td><%= city.Mean_house_price_2017 %></td>
-                  </tr>
-                <%  }); %>
+                <tr>
+                  <th scope="row">Total population</th>
+                  <% citiesObj.Population_2016.forEach(function(val) { %>
+                    <td><%= val.toLocaleString("en-GB") %></td>
+                  <% }); %>
+                </tr>
+                <tr>
+                  <th scope="row">Population UK (%)</th>
+                  <% citiesObj.Population_UK.forEach(function(val) { %>
+                    <td><%= val %></td>
+                  <% }); %>
+                </tr>
+                <tr>
+                  <th scope="row">Population Non-UK (%)</th>
+                  <% citiesObj.Population_Non_UK.forEach(function(val) { %>
+                    <td><%= val %></td>
+                  <% }); %>
+                </tr>
+                <tr>
+                  <th scope="row">CO2 emissions per capita (tons)</th>
+                  <% citiesObj.CO2_Emissions_per_Capita_2015_tons.forEach(function(val) { %>
+                    <td><%= val %></td>
+                  <% }); %>
+                </tr>
+                <tr>
+                  <th scope="row">Number of public libraries</th>
+                  <% citiesObj.Public_libraries.forEach(function(val) { %>
+                    <td><%= val %></td>
+                  <% }); %>
+                </tr>
+                <tr>
+                  <th scope="row">Ultra-fast broadband (%)</th>
+                  <% citiesObj.Ultrafast_Broadband_2017.forEach(function(val) { %>
+                    <td><%= val %></td>
+                  <% }); %>
+                </tr>
+                <tr>
+                  <th scope="row">Employment rate (%)</th>
+                  <% citiesObj.Employment_Rate_2017.forEach(function(val) { %>
+                    <td><%= val %></td>
+                  <% }); %>
+                </tr>
+                <tr>
+                  <th scope="row">Avg. weekly earnings (£)</th>
+                  <% citiesObj.Average_Weekly_Workplace_Earnings_2017.forEach(function(val) { %>
+                    <td><%= val %></td>
+                  <% }); %>
+                </tr>
+                <tr>
+                  <th scope="row">Private / Public sector employment ratio</th>
+                  <% citiesObj.Ratio_of_Private_to_Public_Sector_Employment_2016.forEach(function(val) { %>
+                    <td><%= val %></td>
+                  <% }); %>
+                </tr>
+                <tr>
+                  <th scope="row">Housing affordability ratio</th>
+                  <% citiesObj.Housing_Affordability_Ratio_2017.forEach(function(val) { %>
+                    <td><%= val %></td>
+                  <% }); %>
+                </tr>
+                <tr>
+                  <th scope="row">Mean house price (£)</th>
+                  <% citiesObj.Mean_house_price_2017.forEach(function(val) { %>
+                    <td><%= val.toLocaleString("en-GB") %></td>
+                  <% }); %>
+                </tr>
               </tbody>
             </table>
           </div>
@@ -75,7 +118,7 @@
     </div>
     <div class="row">
       <div class="col-sm-12">
-        <h2>Population UK &amp; non-UK (%)</h2>
+        <h2>Population UK &amp; non-UK</h2>
         <!-- stacked bars -->
         <div id="immigrationSvg"></div>
       </div>
@@ -105,7 +148,7 @@
     <div class="row">
       <div class="col-sm-12">
         <h2>Housing affordability ratio &amp; mean house price</h2>
-        <div id="housingSvg">asdfasdf</div>
+        <div id="housingSvg"></div>
       </div>
     </div>
 </div>

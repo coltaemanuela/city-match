@@ -62,15 +62,43 @@ function getCities(filter) {
     });
 }
 
-//gets the cities to compare and shows them in the compare view. At the moment only favorite cities are compared
-//todo: routes and methods to compare: 1) only pinned cities, 2) all cities (pinned and in favorites)
+//given an array of objects, returns an array with its <property> values
+function getPropertiesAsArray(array, property) {
+    var ret = array.map(function(item) {
+        return item[property];
+    });
+    return ret;
+}
+
+//returns an object with arrays for all properties of the given <cities> array
+function getProperties(cities) {
+    var ret = {};
+    ret.city = getPropertiesAsArray(cities, "city");
+    ret.Population_2016 = getPropertiesAsArray(cities, "Population_2016");
+    ret.Population_UK = getPropertiesAsArray(cities, "Population_UK");
+    ret.Population_Non_UK = getPropertiesAsArray(cities, "Population_Non_UK");
+    ret.Employment_Rate_2017 = getPropertiesAsArray(cities, "Employment_Rate_2017");
+    ret.Average_Weekly_Workplace_Earnings_2017 = getPropertiesAsArray(cities, "Average_Weekly_Workplace_Earnings_2017");
+    ret.Ratio_of_Private_to_Public_Sector_Employment_2016 = getPropertiesAsArray(cities, "Ratio_of_Private_to_Public_Sector_Employment_2016");
+    ret.Housing_Affordability_Ratio_2017 = getPropertiesAsArray(cities, "Housing_Affordability_Ratio_2017");
+    ret.Mean_house_price_2017 = getPropertiesAsArray(cities, "Mean_house_price_2017");
+    ret.CO2_Emissions_per_Capita_2015_tons = getPropertiesAsArray(cities, "CO2_Emissions_per_Capita_2015_tons");
+    ret.Public_libraries = getPropertiesAsArray(cities, "Public_libraries");
+    ret.Ultrafast_Broadband_2017 = getPropertiesAsArray(cities, "Ultrafast_Broadband_2017");
+    return ret;
+}
+
+//gets the favorite cities to compare and shows them in the compare view.
 router.get('/all', isAuthenticated, function(req, res) {
     getFavorites(req).then(function(favs) {
         getCities(favs).then(function(cities) {
             console.log(cities);
+            var citiesObj = getProperties(cities);
+            console.log(citiesObj);
             res.render('compare', {
                 title: "Compare cities",
-                cities: cities
+                cities: cities,
+                citiesObj: citiesObj
             });
         });
     });
