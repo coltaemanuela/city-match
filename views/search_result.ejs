@@ -1,10 +1,9 @@
 <%- include partials/head.ejs %>
 <%- include partials/navbar.ejs %>
 <link rel="stylesheet" type="text/css" href="../../styles/search_result.css">
-
-<div id="customMap" class="custommap"></div>
 <script src="https://maps.googleapis.com/maps/api/js"></script>
 
+<div id="customMap" class="custommap"></div>
 <div class="container">
     <div class="row details-side">
         <div class="col-xs-6 col-sm-6 col-md-6">
@@ -14,8 +13,7 @@
                     <input type="hidden" name="city" value= <%= city%> />
                     <input type="hidden" name="city_population" value= <%= details.Population_2016%> />
                     <input type="hidden" name="earnings" value= <%= details.Average_Weekly_Workplace_Earnings_2017%> />
-                    <button
-                     class="favorite"></button>
+                    <button class="favorite"></button>
                 </form>
                 <span id="interestedin_form">
                 <button class="pin" data-value= <%= city%> ></button>
@@ -43,10 +41,10 @@
                 <form id="review_form"  name="review_form" method="post" action="/cities/">
                     <input type="hidden" name="city" value= <%= city%> />
                     <div class="form-group">
-                        <input type="text" class="form-control input-block" name="review_title" placeholder="Review Title" autofocus="">
+                      <input type="text" class="form-control input-block" name="review_title" placeholder="Review Title" autofocus="">
                     </div>
                     <div class="form-group">
-                        <textarea placeholder="Your Review" class="form-control" rows="6" name="review_body"></textarea>
+                      <textarea placeholder="Your Review" class="form-control" rows="6" name="review_body"></textarea>
                     </div>
                     <div class="form-group">
                       <button class="btn" type="submit" class="submit_review"> Submit </button>
@@ -60,7 +58,6 @@
   function initialize() {
       var mapOptions = { center: location, zoom: 14 }
       var map = new google.maps.Map(document.getElementById('customMap'),mapOptions);
-
       var location = new google.maps.Geocoder().geocode({
         'address': '<%= city %>'
       },
@@ -91,13 +88,9 @@
         data:$('#favorite_form').serialize(),
         success:function(){
           alert("city added to favorites");
-
         }
     });
-    // $('#favorite-button').removeClass().addClass('.favorite-success');
   }
-
-
 
   function pinCity(city) {
     var data = {};
@@ -119,6 +112,5 @@
   $('#interestedin_form .pin').on('click', function() {
     pinCity($(this).attr('data-value'))
   });
-
 
 </script>

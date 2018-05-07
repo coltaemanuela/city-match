@@ -151,7 +151,7 @@ router.post('/recommendations', isAuthenticated, function(req, res){
     var color = utils.hexToRgbA(req.body.color);
     var cities = firebase.database().ref('cities');
    
-
+    console.log(req.body);
     //add color analysis
     var big_5 = { 
         extraversion: req.body.extrovert >= 5 || color.average_rgb > 127  ? true: false,
@@ -160,10 +160,13 @@ router.post('/recommendations', isAuthenticated, function(req, res){
         agreeableness:req.body.spare_time === 'friends' || color.rgb_luminance < 127 ? true: false,
         neuroticism: color.rgb_luminance < 127 ? true: false,
     }    
-   
+    console.log(big_5);
+
     console.log(color);
     // console.log(req.body, color);
     firebase.database().ref(`users/${req.user.uid}`).update({"form_completion" : true });
+    utils.filter_by_big_5(big_5.extraversion, big_5.openness, big_5.conscientiousness, big_5.agreeableness, big_5.neuroticism);
+  
 });
 
 module.exports = router;

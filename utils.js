@@ -37,30 +37,46 @@ module.exports.average_values = {
     "Ultrafast_Broadband_2017":  72.75
 }
 
-module.exports.extremeValues = {
-    lowerImmigration: 3.43,
-    lowerLibraries : 5,
-    lowerEarnings: 413,
-    lowerCO2: 3.41,
-    lowerEmployment:64.08,     
-    lowerHouseAffordability:4.21,
-    lowerHousePrice:102320,   
-    lowerPopulation:108600,
-    lowerSectorReport:1.06,
-    lowerBroadband: 13.86,      
-    greaterImmigration: 41.89,
-    greaterLibraries : 139,
-    greaterEarnings: 726.70,
-    greaterCO2: 24.59,
-    greaterEmployment: 86.60,     
-    greaterHouseAffordability: 17.30,
-    greaterrHousePrice: 592463.90,   
-    greaterPopulation:10018200,
-    greaterSectorReport:7.95,
-    greaterBroadband: 94.52 
-}
+
 
 module.exports.filter_by_big_5 = function(extraversion, openness, conscientiousness, agreeableness, neuroticism){
+    //all values are rounded to the lower integer
+    var extremeValues = {
+        lowerImmigration: 3,
+        lowerLibraries : 5,
+        lowerEarnings: 413,
+        lowerCO2: 3,
+        lowerEmployment:64,     
+        lowerHouseAffordability:4,
+        lowerHousePrice:102320,   
+        lowerPopulation:108600,
+        lowerSectorReport:1,
+        lowerBroadband: 13,      
+        greaterImmigration: 41,
+        greaterLibraries : 139,
+        greaterEarnings: 726,
+        greaterCO2: 24,
+        greaterEmployment: 86,     
+        greaterHouseAffordability: 17,
+        greaterrHousePrice: 592463,   
+        greaterPopulation:10018200,
+        greaterSectorReport:7,
+        greaterBroadband: 94 
+    }
+    var average_values = {      
+        "Population_UK":  70.16,
+        "Population_Non-UK": 13.9,
+        "Public_libraries":  14,
+        "Average_Weekly_Workplace_Earnings_2017": 513,
+        "CO2_Emissions_per_Capita_2015_tons": 5.36,
+        "Employment_Rate_2017": 73.44,   
+        "Housing_Affordability_Ratio_2017": 8.18,
+        "Mean_house_price_2017": 220183.5,
+        "Population_2016": 561461.9048,
+        "Ratio_of_Private_to_Public_Sector_Employment_2016":  2.57,
+        "Ultrafast_Broadband_2017":  72.75
+    }
+    
     var filter_criteria = extremeValues;
 
     if(extraversion || openness || agreeableness ){
@@ -76,6 +92,7 @@ module.exports.filter_by_big_5 = function(extraversion, openness, conscientiousn
         filter_criteria.greaterImmigration = average_values["Population_Non-UK"];
         filter_criteria.lowerEmployment = average_values["Employment_Rate_2017"];        
     }
+    console.log(filter_criteria);
     return filter_criteria;
 }
 
