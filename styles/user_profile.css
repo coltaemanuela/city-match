@@ -5,6 +5,11 @@
 }
 .fav-cities h4{
   vertical-align: middle;
+  font-weight: 100;
+  font-size: 30px;
+}
+.favorite-row{
+  background-color: rgb(22,66,93);
 }
 .col-md-4{
     padding-left: 0px;
@@ -16,8 +21,17 @@
     background-color: rgba(29, 66, 92, 0.93);
     /* background-image: url('./images/ourcities.png'); */
 }
+.row .profile-section-2{
+  border-bottom: rgb(29, 66, 92);
+}
 .recommended-cities h3{
     color:#db4437;
+    font-weight: 100;
+    font-size: 48px;
+    text-align: center;
+}
+.recommended-cities p{
+  text-align: center;
 }
 .axis {
     font: 10px sans-serif;
@@ -29,7 +43,8 @@
     shape-rendering: crispEdges;
 }
  input[type="range"] {
-   -webkit-appearance: none;
+   /* -webkit-appearance: none; */
+   -webkit-appearance: slider-horizontal;
    background-color: lightgray;
    height: 12px;
    width: 400px;
@@ -61,17 +76,18 @@
 .section {
   padding-top: 40px;
   padding-left: 50px;
+  font-weight: 300; 
 }
 .section input[type="radio"]{
   display: none;
 }
 .container {
   margin-bottom: 10px;
+  /* padding-left: 75px; */
 }
 .container label {
   position: relative;
 }
-
 /* Base styles for spans */
 .container span::before,
 .container span::after {
@@ -138,27 +154,26 @@ button{
 }
 .item{
   display: inline-block;
-  margin-bottom: 10px;
-  margin-top: 10px;
+  /* margin-bottom: 10px; */
+  margin-top: 12px;
 }
 .image-holder{
   width: 30%;
 }
 .user-details{
   margin: 0 auto;
-  margin-top: 70%;  
+  margin-top: 50%;  
 }
 .city-name {
   position: absolute;
-  bottom: 10px;
+  bottom: 0px; /*10px;*/
   height: 40px;
   width: 370px;
   text-align: center;
   vertical-align: middle;
-  background-color: rgba(29, 66, 92,0.9);
+  background-color: rgba(29, 66, 92,0.75);
   color: #fff;
   font-weight: 700;
-
 }
 #text{
   position: absolute;
@@ -193,4 +208,77 @@ button{
   color: #fff;
   text-align: center;
   display: none;
+}
+.recommended-area {
+  /* width: 580px; */
+  background-color: rgb(29, 66, 92);
+  /* height: 250px; */
+}
+.recommended-item{
+  margin-top:0;
+  margin-bottom: 0px;
+  display: inline-block;
+}
+.recommended-name{
+  width: 290px;
+  bottom: 0px;
+}
+.recommended-data{
+  display: inline-block;
+  float: right;
+  color: #fff;
+  margin-top: 20px;
+  width: 315px;
+  font-weight: 100;  
+}
+.recommended-cities{
+  background-color: rgb(29, 66, 92);
+  height: 100%;
+}
+/* Style the form */
+#regForm {
+  background-color: #ffffff;
+  margin: 0 auto;
+  padding: 20px;
+  min-width: 300px;
+  height: 100%;
+}
+/* Style the input fields */
+input {
+  padding: 10px;
+  width: 100%;
+  font-size: 17px;
+  font-family: Raleway;
+  border: 1px solid #aaaaaa;
+}
+/* Mark input boxes that gets an error on validation: */
+input.invalid {
+  background-color: #ffdddd;
+}
+
+/* Hide all steps by default: */
+.tab {
+  display: none;
+}
+
+/* Make circles that indicate the steps of the form: */
+.step {
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbbbbb;
+  border: none; 
+  border-radius: 50%;
+  display: inline-block;
+  opacity: 0.5;
+}
+
+/* Mark the active step: */
+.step.active {
+  opacity: 1;
+}
+
+/* Mark the steps that are finished and valid: */
+.step.finish {
+  background-color: rgb(29, 66, 92);
 }

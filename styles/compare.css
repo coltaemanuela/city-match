@@ -1,0 +1,78 @@
+h1 {
+    color: #db4437;
+    padding-top: 2rem;
+    padding-bottom: 1rem;
+    font-weight: 400;
+}
+
+h2 {
+    background-color: rgb(29, 66, 92);
+    color: #fff;
+    text-align: center;
+    padding: 1rem;
+    font-weight: 100;
+}
+
+svg {
+    display: block;
+    margin: auto;
+}
+
+.axis .axis-label {
+    font-size: 14;
+}
+
+.axis text {
+    font-size: 12;
+}
+
+.y.axis text {
+    fill: #000;
+}
+
+.y0.axis text {
+    fill: #173448;
+}
+
+.y1.axis text {
+    fill: #c53e32;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.bar1,
+.serie.popNonUK rect,
+.legend text.popNonUK {
+  fill: #173448;
+}
+
+.legend line.popNonUK {
+    stroke: #173448;
+}
+
+.bar2, 
+.serie.popUK rect,
+.legend text.popUK {
+  fill: #c53e32;
+}
+
+.legend line.popUK {
+    stroke: #c53e32;
+}
+
+.legend text {
+    font-size: 12;
+}
+
+.x.axis path {
+  display: none;
+}
+
+.city text {
+    font-size: 12;
+}

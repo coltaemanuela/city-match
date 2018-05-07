@@ -1,10 +1,9 @@
 <%- include partials/head.ejs %>
 <%- include partials/navbar.ejs %>
 <link rel="stylesheet" type="text/css" href="../../styles/search_result.css">
-
-<div id="customMap" class="custommap"></div>
 <script src="https://maps.googleapis.com/maps/api/js"></script>
 
+<div id="customMap" class="custommap"></div>
 <div class="container">
     <div class="row details-side">
         <div class="col-xs-6 col-sm-6 col-md-6">
@@ -14,9 +13,7 @@
                     <input type="hidden" name="city" value= <%= city%> />
                     <input type="hidden" name="city_population" value= <%= details.Population_2016%> />
                     <input type="hidden" name="earnings" value= <%= details.Average_Weekly_Workplace_Earnings_2017%> />
-
-                    <button
-                     class="favorite"></button>
+                    <button class="favorite"></button>
                 </form>
                 <span id="interestedin_form">
                 <button class="pin" data-value= <%= city%> ></button>
@@ -25,16 +22,18 @@
             <div class="row">
               <div class="col-xs-12">
                 <p><span>Population: </span> <%= details.Population_2016%> </p>
+                <p><span>UK Population: </span> <%= details.Population_UK %></p>
+                <p><span>Non-UK Population </span> <%= details['Population_Non-UK'] %></p>
                 <p><span>CO2 emissions/capita: </span> <%= details.CO2_Emissions_per_Capita_2015_tons %> tons </p>
                 <p><span>Ultrafast broadband 2017: </span><%= details.Ultrafast_Broadband_2017 %> </p>
+                <p><span>Public libraries </span> <%= details.Public_libraries %></p>                
                 <p><span>Employment rate: </span> <%= details.Employment_Rate_2017 %> </p>
                 <p><span>Ratio of private/public sector employment: </span> <%= details.Ratio_of_Private_to_Public_Sector_Employment_2016 %></p>
                 <p><span>Average weekly workplace earnings: </span>  £ <%= details.Average_Weekly_Workplace_Earnings_2017 %></p>
-                <p><span>Housing affordability ratio: </span> <%= details.Housing_Affordability_Ratio_2017 %></p>
+                <p><span>Housing affordability ratio: </span> <%= details.Housing_Affordability_Ratio_2017 %></p> 
               </div>
             </div>
        </div>
-
        <div class="col-xs-6 col-sm-6 col-md-6">
         <h3>Reviews</h3>
             <div></div>
@@ -42,11 +41,14 @@
                 <form id="review_form"  name="review_form" method="post" action="/cities/">
                     <input type="hidden" name="city" value= <%= city%> />
                     <div class="form-group">
-                        <input type="text" class="form-control input-block" name="review_title" placeholder="Review Title" autofocus="">
+                      <input type="text" class="form-control input-block" name="review_title" placeholder="Review Title" autofocus="">
                     </div>
                     <div class="form-group">
-                        <textarea placeholder="Your Review" class="form-control" rows="6" name="review_body"></textarea>
+                      <textarea placeholder="Your Review" class="form-control" rows="6" name="review_body"></textarea>
                     </div>
+                    <div class="form-group">
+                      <button class="btn" type="submit" class="submit_review"> Submit </button>
+                  </div>
                 </form>
             </div>
        </div>
@@ -56,7 +58,6 @@
   function initialize() {
       var mapOptions = { center: location, zoom: 14 }
       var map = new google.maps.Map(document.getElementById('customMap'),mapOptions);
-
       var location = new google.maps.Geocoder().geocode({
         'address': '<%= city %>'
       },
@@ -87,13 +88,9 @@
         data:$('#favorite_form').serialize(),
         success:function(){
           alert("city added to favorites");
-
         }
     });
-    // $('#favorite-button').removeClass().addClass('.favorite-success');
   }
-
-
 
   function pinCity(city) {
     var data = {};
@@ -115,6 +112,5 @@
   $('#interestedin_form .pin').on('click', function() {
     pinCity($(this).attr('data-value'))
   });
-
 
 </script>
