@@ -22,3 +22,17 @@ module.exports.hexToRgbA = function(hex){
     }
     throw new Error('Bad Hex');
 }
+
+module.exports.average_values = {      
+    "Population_UK":  70.16,
+    "Population_Non-UK": 13.9,
+    "Public_libraries":  14,
+    "Average_Weekly_Workplace_Earnings_2017": 513,
+    "CO2_Emissions_per_Capita_2015_tons": 5.36,
+    "Employment_Rate_2017": 73.44,   
+    "Housing_Affordability_Ratio_2017": 8.18,
+    "Mean_house_price_2017": 220183.5,
+    "Population_2016": 561461.9048,
+    "Ratio_of_Private_to_Public_Sector_Employment_2016":  2.57,
+    "Ultrafast_Broadband_2017":  72.75
+}

@@ -44,95 +44,142 @@
         </div>
       </div>
     </div>
-        <!-- Recommended cities section -->
+    <!-- Recommended cities section -->
     <div class="recommended-cities">
-    <% if(!details.form_completion){%>
+    <% if(!details.form_completion){ %>
       <div class="col-md-4" style="display:inline-block;float:left;background-color: #fff;padding-top:40px;">
       <div class="container">
         <h3>Recommeded cities</h3>
           <p><small><i>Take the quiz below increase the cuuracy of the cities recommendations.</i></small></p>
       </div>
-      <form method="post" action="/users/recommendations">
-        <section id="first" class="section">
-          <div class="container">
-            <p>How are you (or your family) usually spending your spare time? </p>
-            <input type="radio" name="spare_time" id="radio-1" value="movies">
-            <label for="radio-1"><span class="radio">Watching TV, movies or playing online games</span></label>
-          </div>
-          <div class="container">
-            <input type="radio" name="spare_time" id="radio-2" value="sport">
-            <label for="radio-2"><span class="radio">Doing sports (e.g. swimming, running)</span></label>
-          </div>
-          <div class="container">
-            <input type="radio" name="spare-time" id="radio-3" value="cultural">
-            <label for="radio-3"><span class="radio">Reading or other cultural activities (e.g. visiting museums)</span></label>
-          </div>
-          <div class="container">
-            <input type="radio" name="spare_time" id="radio-4" value="friends">
-            <label for="radio-4"><span class="radio"> Hang out with friends( e.g. go to pub, parties)</span></label>
-          </div>
-        </section>
-        <section id="second" class="section">
-            <div class="container">
-              <p>Your preferred workplace type:</p>
-              <input type="radio" name="workplace" id="radio-5" value="corporation">
-              <label for="radio-5"><span class="radio">Big corporation or a multinational company</span></label>
+      <form id="regForm" method="post" action="/users/recommendations">
+        <!-- One "tab" for each step in the form: -->  
+          <section id="first" class="section tab">
+              <div class="container">
+                <p>How are you (or your family) prefer spending your spare time? </p>
+                <input type="radio" name="spare_time" id="radio-1" value="movies">
+                <label for="radio-1"><span class="radio">Watching TV, movies or playing online games</span></label>
+              </div>
+              <div class="container">
+                <input type="radio" name="spare_time" id="radio-2" value="sport">
+                <label for="radio-2"><span class="radio">Travel or engage in new experiences</span></label>
+              </div>
+              <div class="container">
+                <input type="radio" name="spare-time" id="radio-3" value="cultural">
+                <label for="radio-3"><span class="radio">Reading or other cultural activities (e.g. visiting museums, art galleries)</span></label>
+              </div>
+              <div class="container">
+                <input type="radio" name="spare_time" id="radio-4" value="friends">
+                <label for="radio-4"><span class="radio"> Hang out with friends </span></label>
+              </div>
+            </section>
+            <section id="second" class="section tab">
+                <div class="container">
+                  <p>Your preferred workplace type:</p>
+                  <input type="radio" name="workplace" id="radio-5" value="corporation">
+                  <label for="radio-5"><span class="radio">Big corporation or a multinational company</span></label>
+                </div>
+                <div class="container">
+                  <input type="radio" name="workplace" id="radio-6" value="start-up">
+                  <label for="radio-6"><span class="radio">  Start-up </span></label>
+                </div>
+                <div class="container">
+                  <input type="radio" name="workplace" id="radio-7" value="freelance">
+                  <label for="radio-7"><span class="radio">Work from home, as a freelancer  or own business </span></label>
+                </div>
+                <div class="container">
+                  <input type="radio" name="workplace" id="radio-8" value="small-medium">
+                  <label for="radio-8"><span class="radio"> Small or medium-sized company </span></label>
+                </div>
+            </section>
+            <section id="third" class="section tab">
+                <div class="container">
+                  <p>On the scale below, how important is your career to you?</p>
+                    <input name="career" type="range" min="0" max="10" step="1" list="steplist">
+                </div>
+              </section>
+              <section id="fourth" class="section tab">
+                <div class="container">
+                  <p>On the scale below, how likely are you to take risks?</p>
+                    <input name="risk" type="range" min="0" max="10" step="1" list="steplist">
+                    <datalist id="steplist">
+                      <option>0</option>
+                      <option>1</option>
+                      <option>2</option>
+                      <option>3</option>
+                      <option>4</option>
+                      <option>5</option>
+                      <option>6</option>
+                      <option>7</option>
+                      <option>8</option>
+                      <option>9</option>
+                      <option>10</option>                  
+                    </datalist>
+                </div>
+              </section>
+              <section id="fifth" class="section tab">
+                <div class="container">
+                  <p>On the scale below, how extrovert do you consider yourself?</p>
+                    <input name="extrovert" type="range" min="0" max="10" step="1" list="steplist">
+                </div>
+              </section>
+              <section id="sixth" class="section tab">
+                <div class="container">
+                  <p>Do you agree with the statement: “I’d rather earn more and have less spare time”: </p>
+                  <div class="container">
+                    <input type="radio" name="time_money" id="radio-9" value="true">
+                    <label for="radio-9"><span class="radio"> True </span></label>
+                  </div>
+                  <div class="container">
+                    <input type="radio" name="time_money" id="radio-10" value="false">
+                    <label for="radio-10"><span class="radio"> False </span></label>
+                  </div>
+                </div>
+              </section>
+              <section id="seventh" class="section tab">
+                <div class="container">
+                  <p>What do you do/think when you are standing in a long queue?</p>
+                  <input type="radio" name="patience" id="radio-11" value="patient">
+                  <label for="radio-11"><span class="radio"> Observe people around, listen or smile to people </span></label>
+                </div>
+                <div class="container">
+                  <input type="radio" name="patience" id="radio-12" value="impatient">
+                  <label for="radio-12"><span class="radio"> Getting impatient and annoyed </span></label>
+                </div>
+                <div class="container">
+                  <input type="radio" name="patience" id="radio-13" value="impatient">
+                  <label for="radio-13"><span class="radio"> Grab the smartphone </span></label>
+                </div>
+                <div class="container">
+                  <input type="radio" name="patience" id="radio-14" value="patient">
+                  <label for="radio-14"><span class="radio"> Divert your attention to any problem and think </span></label>
+                </div>
+              </section>
+              <section id="eighth" class="section tab">
+                <div class="container">
+                  <p>Pick your favorite color (click the bubble):</p>
+                  <div class="input-color-container">
+                    <input id="input-color" type="color" class="input-color" value="#ffffff" name="color">
+                  </div>
+                </div>
+              </section>
+          <div style="overflow:auto;">
+            <div style="float:right;">
+              <button type="button" id="prevBtn" class="btn" onclick="nextPrev(-1)">Previous</button>
+              <button type="button" id="nextBtn" class="btn" onclick="nextPrev(1)">Next</button>
             </div>
-            <div class="container">
-              <input type="radio" name="workplace" id="radio-6" value="start-up">
-              <label for="radio-6"><span class="radio">  Start-up </span></label>
-            </div>
-            <div class="container">
-              <input type="radio" name="workplace" id="radio-7" value="freelance">
-              <label for="radio-7"><span class="radio">Work from home, as a freelancer  or own business </span></label>
-            </div>
-            <div class="container">
-              <input type="radio" name="workplace" id="radio-8" value="small-medium">
-              <label for="radio-8"><span class="radio">Small or medium-sized company</span></label>
-            </div>
-        </section>
-        <section id="third" class="section">
-          <div class="container">
-            <p>On the scale below, how important is your career to you?</p>
-              <input name="career" type="range" min="0" max="10">
-          </div>
-        </section>
-        <section id="fourth" class="section">
-          <div class="container">
-            <p>On the scale below, how likely are you to take risks?</p>
-              <input name="risk" type="range" min="0" max="10">
-          </div>
-        </section>
-        <section id="fifth" class="section">
-          <div class="container">
-            <p>On the scale below, how extrovert do you consider yourself?</p>
-              <input name="e" type="range" min="0" max="10">
-          </div>
-        </section>
-        <section id="sixth" class="section">
-          <div class="container">
-            <p>Do you agree with the statement: “I’d rather earn more and have less spare time”: </p>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="time-money-true" id="cultural" value="true">
-              <label class="form-check-label" for="time-money-true">True</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="time-money-false" id="friends" value="false">
-              <label class="form-check-label" for="time-money-false">False </label>
-            </div>
-          </div>
-        </section>
-        <section id="seventh" class="section">
-          <div class="container">
-            <p>Pick your favorite color (click the bubble):</p>
-            <div class="input-color-container">
-              <input id="input-color" type="color" class="input-color" value="#ffffff" name="color">
-            </div>
-          </div>
-        </section>
-        <div class="container">
-          <button type="submit" class="btn">Submit</button>
-        </div>
+          </div>          
+          <!-- Circles which indicates the steps of the form: -->
+          <div style="text-align:center;margin-top:40px;">
+            <span class="step"></span>
+            <span class="step"></span>
+            <span class="step"></span>
+            <span class="step"></span>
+            <span class="step"></span>
+            <span class="step"></span>      
+            <span class="step"></span>
+            <span class="step"></span>                        
+          </div>          
       </form>
     </div>
       <% } if(details.recommendations){
@@ -158,3 +205,79 @@
       } %>
     </div>
 </body>
+<script>
+
+var currentTab = 0; // Current tab is set to be the first tab (0)
+showTab(currentTab); // Display the current tab
+
+function showTab(n) {
+  // This function will display the specified tab of the form ...
+  var x = document.getElementsByClassName("tab");
+  x[n].style.display = "block";
+  // ... and fix the Previous/Next buttons:
+  if (n == 0) {
+    document.getElementById("prevBtn").style.display = "none";
+  } else {
+    document.getElementById("prevBtn").style.display = "inline";
+  }
+  if (n == (x.length - 1)) {
+    document.getElementById("nextBtn").innerHTML = "Submit";
+  } else {
+    document.getElementById("nextBtn").innerHTML = "Next";
+  }
+  // ... and run a function that displays the correct step indicator:
+  fixStepIndicator(n)
+}
+
+function nextPrev(n) {
+  // This function will figure out which tab to display
+  var x = document.getElementsByClassName("tab");
+  // Exit the function if any field in the current tab is invalid:
+  if (n == 1 && !validateForm()) return false;
+  // Hide the current tab:
+  x[currentTab].style.display = "none";
+  // Increase or decrease the current tab by 1:
+  currentTab = currentTab + n;
+  // if you have reached the end of the form... :
+  if (currentTab >= x.length) {
+    //...the form gets submitted:
+    document.getElementById("regForm").submit();
+    return false;
+  }
+  // Otherwise, display the correct tab:
+  showTab(currentTab);
+}
+
+function validateForm() {
+  // This function deals with validation of the form fields
+  var x, y, i, valid = true;
+  x = document.getElementsByClassName("tab");
+  y = x[currentTab].getElementsByTagName("input");
+  // A loop that checks every input field in the current tab:
+  for (i = 0; i < y.length; i++) {
+    // If a field is empty...
+    if (y[i].value == "") {
+      // add an "invalid" class to the field:
+      y[i].className += " invalid";
+      // and set the current valid status to false:
+      valid = false;
+    }
+  }
+  // If the valid status is true, mark the step as finished and valid:
+  if (valid) {
+    document.getElementsByClassName("step")[currentTab].className += " finish";
+  }
+  return valid; // return the valid status
+}
+
+function fixStepIndicator(n) {
+  // This function removes the "active" class of all steps...
+  var i, x = document.getElementsByClassName("step");
+  for (i = 0; i < x.length; i++) {
+    x[i].className = x[i].className.replace(" active", "");
+  }
+  //... and adds the "active" class to the current step:
+  x[n].className += " active";
+}
+
+</script>

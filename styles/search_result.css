@@ -1,11 +1,11 @@
 .favorite{
-    background: url(./images/heart.png);
-    width: 42px;
+    background: url('./images/heart.png');
+    width: 30px;
     height: 30px;
     background-repeat: no-repeat;
     display: inline-block;
     float: right;
-    margin-right: 70px;
+    margin-right: 15px;
     padding: 0;
     border: none;
     background-size: contain;

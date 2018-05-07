@@ -145,7 +145,11 @@ router.post('/recommendations', isAuthenticated, function(req, res){
     var workplace = req.body.workplace;
     var career = req.body.career;
     var risk = req.body.risk;
+    var extrovert= req.body.extrovert;
+    var time_money = req.body.time_money; 
+    var patience = req.body.patience;
     var color = utils.hexToRgbA(req.body.color);
+    
     console.log(req.body, color);
 
     firebase.database().ref(`users/${req.user.uid}`).update({
