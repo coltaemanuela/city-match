@@ -1,6 +1,6 @@
 .favorite{
-    background: url('./images/btn-list-add-to-favourites-hover.png');
-    width: 30px;
+    background: url(./images/heart.png);
+    width: 42px;
     height: 30px;
     background-repeat: no-repeat;
     display: inline-block;
@@ -8,11 +8,12 @@
     margin-right: 70px;
     padding: 0;
     border: none;
+    background-size: contain;
 }
 .favorite:hover,
 .favorite:active,
 .favorite-success {
-    background-image: url('./images/btn-favourite-selected.png');
+    background-image: url('./images/heart-hover.png');
     width: 30px;
     height: 30px;
     background-repeat: no-repeat;
