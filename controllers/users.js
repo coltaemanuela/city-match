@@ -145,31 +145,25 @@ router.post('/recommendations', isAuthenticated, function(req, res){
     var workplace = req.body.workplace;
     var career = req.body.career;
     var risk = req.body.risk;
-    var extrovert= req.body.extrovert;
+    // var extrovert = req.body.extrovert;
     var time_money = req.body.time_money; 
     var patience = req.body.patience;
     var color = utils.hexToRgbA(req.body.color);
     var cities = firebase.database().ref('cities');
-    // var filer_criteria={};
-    if( spare_time ==='movies'){    
-        cities.orderByChild('Ultrafast_Broadband_2017').startAt(utils.average_values["Ultrafast_Broadband_2017"]).on("value", function(result1){
-            console.log(result1);
-        });
- 
-    }else if(spare_time==='explore'){
-        
-    }
+   
 
-    
-    console.log(req.body, color);
-
-    firebase.database().ref(`users/${req.user.uid}`).update({
-      "form_completion":true
-    });
-  //update user profle with form_completion:true
-
-
-    console.log('permission approved'+ req.user.uid);
+    //add color analysis
+    var big_5 = { 
+        extraversion: req.body.extrovert >= 5 || color.average_rgb > 127  ? true: false,
+        openness: req.body.spare_time === 'explore'|| color.rgb_luminance < 127 ? true: false,
+        conscientiousness: req.body.spare_time === 'cultural'|| color.rgb_luminance > 127 ? true: false,
+        agreeableness:req.body.spare_time === 'friends' || color.rgb_luminance < 127 ? true: false,
+        neuroticism: color.rgb_luminance < 127 ? true: false,
+    }    
+   
+    console.log(color);
+    // console.log(req.body, color);
+    firebase.database().ref(`users/${req.user.uid}`).update({"form_completion" : true });
 });
 
 module.exports = router;

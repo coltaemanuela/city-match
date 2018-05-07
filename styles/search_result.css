@@ -52,3 +52,7 @@ h3{
     background-size: 100%;
     display: inline-block;
 }
+.submit_review{
+    background-color:#db4437;
+    color: #fff;
+}
