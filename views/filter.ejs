@@ -2,13 +2,150 @@
 <%- include partials/navbar.ejs %>
 
 <link rel="stylesheet" type="text/css" href="../../styles/auth.css">
+
+<script src="https://www.gstatic.com/firebasejs/4.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.10.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.10.1/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.10.1/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.10.1/firebase-messaging.js"></script>
+
+<style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+ </style>
+
+
 <body>
+
 <div>
 <% if(filteredCity)
-{Object.keys(filteredCity).forEach(function (id) {
-var city = filteredCity[id] %>
-<p><%= city %> <br/><%= city.population%></p>
-<%})
-}%>
+{var city = filteredCity} %>
+<input type="hidden" id="cityName" value=<%= city%> ></input>
 </div>
+
+<div id="map"></div>
+
+    <script>
+
+    var config = {
+        "apiKey": "AIzaSyD2Ch6ki-gZ98roJx7cj6Rcb2-OY4ZM0vo",
+        "authDomain": "city-match.firebaseapp.com",
+         "databaseURL": "https://city-match.firebaseio.com",
+         "projectId": "city-match",
+         "storageBucket": "city-match.appspot.com",
+         "messagingSenderId": "331136100363"
+      };
+
+      firebase.initializeApp(config);
+
+      var db = firebase.database();
+
+      var map;
+      function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+                  center: {lat: 52.635, lng:-1.135},
+                  zoom: 6.3,
+                });
+
+
+            var geocoder = new google.maps.Geocoder();
+                          geocodeAddress(geocoder, map);
+      }
+
+
+      function geocodeAddress(geocoder, resultsMap) {
+
+         var address = document.getElementById('cityName').value;
+         var cities = address.split(",");
+         var population = [];
+         var earnings = [];
+         var employment = [];
+         var mhp = [];
+         var co2 = [];
+         var ub = [];
+         var immigrant = [];
+         var library = [];
+              Object.keys(cities).forEach(function(i){
+
+              db.ref('cities').child(cities[i]).child("Population_2016").on("value", function(snapshot){
+                 population[i] = snapshot.val();
+               db.ref('cities').child(cities[i]).child("Average_Weekly_Workplace_Earnings_2017").on("value", function(snapshot){
+                 earnings[i] = snapshot.val();
+                 db.ref('cities').child(cities[i]).child("Employment_Rate_2017").on("value", function(snapshot){
+                    employment[i] = snapshot.val();
+                    db.ref('cities').child(cities[i]).child("Mean_house_price_2017").on("value", function(snapshot){
+                      mhp[i] = snapshot.val();
+                       db.ref('cities').child(cities[i]).child("CO2_Emissions_per_Capita_2015_tons").on("value", function(snapshot){
+                         co2[i] = snapshot.val();
+                          db.ref('cities').child(cities[i]).child("Ultrafast_Broadband_2017").on("value", function(snapshot){
+                               ub[i] = snapshot.val();
+                               db.ref('cities').child(cities[i]).child("Population_Non-UK").on("value", function(snapshot){
+                                  immigrant[i] = snapshot.val();
+                                  db.ref('cities').child(cities[i]).child("Public_libraries").on("value", function(snapshot){
+                                                                    library[i] = snapshot.val();
+
+
+              var contentString = '<div id="content">'+
+                                  '<div id="siteNotice">'+
+                                  '</div>'+
+                                  '<p>'+ cities[i] + '</p>' +
+                                  '<div id="bodyContent">'+
+                                  '<p><b>Population :</b>'+ population[i] + '</p>' +
+                                  '<p><b>Weekly Workplace Earnings: £</b>'+ earnings[i] + '</p>' +
+                                  '<p><b>Employment Rate (%): </b>'+ employment[i] + '</p>' +
+                                  '<p><b>Mean House Price: £</b>'+ mhp[i] + '</p>' +
+                                  '<p><b>CO2 Emissions per Capita: </b>'+ co2[i] + '</p>' +
+                                  '<p><b>Ultrafast Broadband (%): </b>'+ ub[i] + '</p>' +
+                                  '<p><b>Immigrants (%): </b>'+ immigrant[i] + '</p>' +
+                                  '<p><b>Public libraries: </b>'+ library[i] + '</p>' +
+                                  '</div>'+
+                                  '</div>';
+
+
+               var infowindow = new google.maps.InfoWindow({
+                            content: contentString
+                          });
+
+               geocoder.geocode({'address': cities[i]}, function(results, status) {
+                if (status === 'OK') {
+                  //resultsMap.setCenter(results[0].geometry.location);
+                  var marker = new google.maps.Marker({
+                    map: resultsMap,
+                    position: results[0].geometry.location,
+                    title: cities[i]
+                  });
+                   marker.addListener('click', function(){
+                       infowindow.open(resultsMap, marker);
+                    });
+                } else {
+                  //alert('Geocode was not successful for the following reason: ' + status);
+                }
+                });
+                });
+                });
+                });
+                });
+              });
+              });
+              });
+              });
+             });
+            }
+
+
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAWWZcuRr_z_0xBns-MYrj09axnzuL18a4&callback=initMap"
+        async defer></script>
 </body>
+
+
+

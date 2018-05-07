@@ -13,18 +13,18 @@ router.post('/filter', function(req,res){
       var house = req.body.selectHouse;
       var co2 = req.body.selectCo2;
       var ultra = req.body.selectUltra;
-      var lowerPopulation;
-      var upperPopulation;
-      var lowerEarnings;
-      var upperEarnings;
-      var lowerEmployment;
-      var upperEmployment;
-      var lowerHouse;
-      var upperHouse;
-      var lowerCo2;
-      var upperCo2;
-      var lowerUltra;
-      var upperUltra;
+      var lowerPopulation = 0;
+      var upperPopulation = 20000000;
+      var lowerEarnings = 0;
+      var upperEarnings = 800;
+      var lowerEmployment = 0;
+      var upperEmployment = 100;
+      var lowerHouse = 0;
+      var upperHouse = 1000000;
+      var lowerCo2 = 0;
+      var upperCo2 = 30;
+      var lowerUltra = 0;
+      var upperUltra = 100;
      if (population == 1000000){
       lowerPopulation = 1000000;
       upperPopulation = 20000000;
@@ -128,7 +128,7 @@ router.post('/filter', function(req,res){
                Object.keys(filteredCity1).forEach(function(id1){
                   Object.keys(filteredCity2).forEach(function(id2){
                        Object.keys(filteredCity3).forEach(function(id3){
-                           Object.keys(filteredCity4).forEach(function(id4){
+                           /*Object.keys(filteredCity4).forEach(function(id4){
                               Object.keys(filteredCity5).forEach(function(id5){
                                  Object.keys(filteredCity6).forEach(function(id6){
                                     if(id1 == id2 && id1 == id3 && id1 == id4 && id1==id5 && id1==id6){
@@ -136,10 +136,17 @@ router.post('/filter', function(req,res){
                                             }
                                     });
                                   });
-                               });
+                               });*/
+                               if(id1 == id2 && id1 == id3){
+                                   filteredCity.push(id1);
+                               }
                             });
                        });
                    });
+                  /*Object.keys(filteredCity1).forEach(function(id1){
+                  //filteredCity = Object.assign(filteredCity1, filteredCity2, filteredCity3,filteredCity4,filteredCity5,filteredCity6);
+                  filteredCity.push(id1);
+                  });*/
                res.render('filter.ejs', {
                filteredCity: filteredCity
                                 });
