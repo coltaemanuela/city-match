@@ -12,12 +12,13 @@ var config = require('./config/config.json');
 var users = require('./controllers/users');
 var compare = require('./controllers/compare');
 var filters = require('./controllers/filters');
+var cities = require('./controllers/cities');
 
 //setup view engine
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use("/styles",express.static(__dirname + "/styles"));
-//firebase initiatialization
+//firebase initialization
 firebase.initializeApp(config.firebase);
 
 //storage initialization
@@ -36,6 +37,7 @@ app.use(bodyParser.json());
 app.use('/users', users);
 app.use('/compare', compare);
 app.use('/filters',filters);
+app.use('/cities', cities);
 
 //homepage
 app.get('/', function (req, res) {
@@ -46,7 +48,13 @@ app.post('/search', function(req,res){
   var city = req.body.city;
   console.log(city);
   firebase.database().ref(`cities/` + city).once('value')
-  .then(function(data) {
+  .then(function(data){
+    /*
+      iterate over the /reviews collection
+      have a variable that serves as counter (of number of reviews)
+      have a variable that serves as sum (of ratings of all reviews)
+      
+    */
       res.render('search_result', {
           city: city,
           details: data.val()

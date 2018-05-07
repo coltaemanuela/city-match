@@ -130,15 +130,6 @@ router.post('/interestedin', isAuthenticated, function(req, res) {
 
 //todo: post /unpinCity
 
-router.post('/review', isAuthenticated,function(req, res){
-    console.log('permission approved'+ req.user.uid);
-    firebase.database().ref(`users/${req.user.uid}/reviews`).push({
-        "city":req.body.city,
-        "title": req.body.review_title,
-        "review_body": req.body.review_body,
-        "timestamp": Date.now()
-    });
-});
 
 router.post('/recommendations', isAuthenticated, function(req, res){
     var spare_time= req.body.spare_time;

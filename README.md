@@ -12,7 +12,7 @@ Project structure:
 
 
 index.js is the main file.  All other controllers are imported here.
-conrtollers/users.js - all the routes related to user (user profile, registration, auth, etc.) will be implemented here
+controllers/users.js - all the routes related to user (user profile, registration, auth, etc.) will be implemented here
 views - all HTML files will be placed here. These views have the ".ejs" extension because the node package called "ejs" is the one we will use for inserting js variables (exported from the controllers) in the HTML.
 
 Learn more about ejs here: https://scotch.io/tutorials/use-ejs-to-template-your-node-application
