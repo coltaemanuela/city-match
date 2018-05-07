@@ -149,6 +149,17 @@ router.post('/recommendations', isAuthenticated, function(req, res){
     var time_money = req.body.time_money; 
     var patience = req.body.patience;
     var color = utils.hexToRgbA(req.body.color);
+    var cities = firebase.database().ref('cities');
+    // var filer_criteria={};
+    if( spare_time ==='movies'){    
+        cities.orderByChild('Ultrafast_Broadband_2017').startAt(utils.average_values["Ultrafast_Broadband_2017"]).on("value", function(result1){
+            console.log(result1);
+        });
+ 
+    }else if(spare_time==='explore'){
+        
+    }
+
     
     console.log(req.body, color);
 
