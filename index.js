@@ -55,10 +55,26 @@ app.post('/search', function(req,res){
       have a variable that serves as sum (of ratings of all reviews)
       
     */
+    // get current user if logged in
+    var user = firebase.auth().currentUser;
+    if (user !== null) {
+        req.user = user;
+        // check if city is in favorites
+        firebase.database().ref(`users/${user.uid}/favorites/${city}`).once("value").then(function(snapshot) {
+          var favorite = (snapshot.val() !== null);
+          res.render('search_result', {
+              city: city,
+              favorite: favorite,
+              details: data.val()
+          });
+        });
+    } else {
       res.render('search_result', {
           city: city,
+          favorite: false,
           details: data.val()
       });
+    }
   })
   .catch(function(error) {
     res.send(error);

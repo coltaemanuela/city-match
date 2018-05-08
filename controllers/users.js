@@ -96,38 +96,29 @@ router.post("/favorite", isAuthenticated,function(req, res){
     });
    });
 
-   firebase.database().ref("cities").orderByChild("Population_2016").startAt(req.body.city_population - 10000).limitToFirst(2).on("value", function(snapshot){
-    var recommendations = snapshot.val();
-    firebase.database().ref("cities").orderByChild("Average_Weekly_Workplace_Earnings_2017").startAt(req.body.earnings- 20).limitToFirst(2).on("value", function(snapshot1){
-        var recommendations1 = snapshot1.val();
-        var final_recommendations = Object.assign(recommendations, recommendations1);
-        Object.keys(final_recommendations).forEach(function(id){
-            if(id != req.body.city){
-                existing_recommendations.push(final_recommendations[id]);
-                bucket.file( "cities/"+ id + ".jpg" ).getSignedUrl({ action: "read",expires: "03-09-2491"}).then(signedUrls => {
-                    firebase.database().ref(`users/${req.user.uid}/recommendations/${id}`).update({
-                        "imageUrl":signedUrls[0],
-                        "Average_Weekly_Workplace_Earnings_2017":final_recommendations[id]["Average_Weekly_Workplace_Earnings_2017"],
-                        "Population_2016":final_recommendations[id]["Population_2016"]
+    firebase.database().ref("cities").orderByChild("Population_2016").startAt(req.body.city_population - 10000).limitToFirst(2).on("value", function(snapshot){
+        var recommendations = snapshot.val();
+        firebase.database().ref("cities").orderByChild("Average_Weekly_Workplace_Earnings_2017").startAt(req.body.earnings- 20).limitToFirst(2).on("value", function(snapshot1){
+            var recommendations1 = snapshot1.val();
+            var final_recommendations = Object.assign(recommendations, recommendations1);
+            Object.keys(final_recommendations).forEach(function(id){
+                if(id != req.body.city){
+                    existing_recommendations.push(final_recommendations[id]);
+                    bucket.file( "cities/"+ id + ".jpg" ).getSignedUrl({ action: "read",expires: "03-09-2491"}).then(signedUrls => {
+                        firebase.database().ref(`users/${req.user.uid}/recommendations/${id}`).update({
+                            "imageUrl":signedUrls[0],
+                            "Average_Weekly_Workplace_Earnings_2017":final_recommendations[id]["Average_Weekly_Workplace_Earnings_2017"],
+                            "Population_2016":final_recommendations[id]["Population_2016"]
+                        });
                     });
-                });
-            }
+                }
+            });
         });
     });
-});
-});
 
-//todo: rename to /pinCity
-router.post("/interestedin", isAuthenticated, function(req, res) {
-    console.log("permission approved"+ req.user.uid);
-    firebase.database().ref(`users/${req.user.uid}/interestedin`).push({
-        "city": req.body.city,
-        "timestamp": Date.now()
-    });
-    res.send("city " + req.body.city + " added as favorite");
-});
+    res.status(200).send("Added to favorites");
 
-//todo: post /unpinCity
+});
 
 
 router.post("/recommendations", isAuthenticated, function(req, res){
