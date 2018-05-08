@@ -33,7 +33,15 @@ h3{
 .submit_review{
     background-color:#db4437;
     color: #fff;
-}}
+}
+
+/*
+TODO fix how the reviews are displayed (too thin column)
+.review_title{
+  width: 
+
+}
+*/
 
 /* 
 For code below this line:
