@@ -26,6 +26,7 @@ function isAuthenticated (req, res, next) {
 
 router.post('/reviews', isAuthenticated,function(req, res){
     console.log('permission approved'+ req.user.uid);
+    console.log(req.body);
     firebase.database().ref(`cities/${req.body.city}/reviews`).push({
         "userid": req.user.uid,
         "title": req.body.review_title,
@@ -33,6 +34,7 @@ router.post('/reviews', isAuthenticated,function(req, res){
         "timestamp": Date.now(),
         "rating": req.body.rating
     });
+    res.status(200).send("Review added.");
 });
 
 module.exports = router;

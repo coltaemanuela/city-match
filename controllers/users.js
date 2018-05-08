@@ -25,6 +25,17 @@ function isAuthenticated (req, res, next) {
     }
 }
 
+function canAddToFavorites(req, res, next) {
+    var user = firebase.auth().currentUser;
+    console.log("current user " + user);
+    if (user !== null) {
+        req.user = user;
+        next();
+    } else {
+        res.status(401).send("Please log in to add this city to favorites");
+    } 
+}
+
 router.get("/register", function(req, res) {
 	firebase.database().ref(`cities`).once("value").then(function(cities_details){
 		// console.log( Object.keys(cities_details.val()));
@@ -82,7 +93,7 @@ router.post("/login", function(req,res){
     });
 });
 
-router.post("/favorite", isAuthenticated,function(req, res){
+router.post("/favorite", canAddToFavorites/*isAuthenticated*/, function(req, res){
     // console.log("permission approved"+ req.user.uid);
     var filePath = req.body.city + ".jpg";
     var citiesPath = "cities/" + filePath;
