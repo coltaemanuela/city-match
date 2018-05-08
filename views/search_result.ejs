@@ -70,7 +70,6 @@
                 </form>
             </div>
             <div>
-            <!-- TODO display reviews here-->  
             <div class="col-md-10" id="block">
               <div class="reviews-list">
                   <% if(details.reviews){
@@ -85,16 +84,6 @@
                               <div class="review-body">
                                 <p> <%= details.reviews[id].body%> </p> 
                               </div>
-                              <!-- 
-                              <div class="image-holder">
-                                <img alt="" src="<%= favorite.imageUrl %>" width="370" height="310">
-                                <div onclick="on()" class="city-name">   <%= id %> </div>
-                                <div class="hidden-details" id="hidden-details[]">
-                                  <p><%= id %> <br/><%= favorite.population%></p>
-                                </div>
-                              </div>
-                              Rating, Title, Body
-                              -->
                             </div>
                           </div>
                         </div>
