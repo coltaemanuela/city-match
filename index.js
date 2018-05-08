@@ -46,35 +46,55 @@ app.get('/', function (req, res) {
 //retrieve search results
 app.post('/search', function(req,res){
   var city = req.body.city;
+  var sumOfRatings = 0;
+
   console.log(city);
-  firebase.database().ref(`cities/` + city).once('value')
-  .then(function(data){
+  firebase.database().ref(`cities/` + city).once('value').then(function(data){
     /*
       iterate over the /reviews collection
       have a variable that serves as counter (of number of reviews)
-      have a variable that serves as sum (of ratings of all reviews)
-      
+      have a variable that serves as sum (of ratings of all reviews)  
     */
-    // get current user if logged in
-    var user = firebase.auth().currentUser;
-    if (user !== null) {
-        req.user = user;
-        // check if city is in favorites
-        firebase.database().ref(`users/${user.uid}/favorites/${city}`).once("value").then(function(snapshot) {
-          var favorite = (snapshot.val() !== null);
+    firebase.database().ref(`cities/` + city + `/reviews`).once('value').then(function(reviews){
+      //calculate average rating of all reviews for the city, if there are any
+      if (reviews.val() != null) {
+        Object.keys(reviews.val()).forEach(function(k) {
+          sumOfRatings += parseFloat(reviews.val()[k].rating);
+         });
+        var averageRating = sumOfRatings / Object.keys(reviews.val()).length;
+        averageRating.toFixed(2);
+        
+        // get current user if logged in
+        var user = firebase.auth().currentUser;
+        if (user !== null) {
+            req.user = user;
+            // check if city is in favorites
+            firebase.database().ref(`users/${user.uid}/favorites/${city}`).once("value").then(function(snapshot) {
+              var favorite = (snapshot.val() !== null);
+             res.render('search_result', {
+                  city: city,
+                  favorite: favorite,
+                  averageRating: averageRating,
+                  details: data.val()
+              });
+            });
+        } else {
           res.render('search_result', {
-              city: city,
-              favorite: favorite,
-              details: data.val()
+            city: city,
+            favorite: false,
+            averageRating: averageRating,
+            details: data.val()
           });
-        });
-    } else {
-      res.render('search_result', {
+        }
+      } else {
+        res.render('search_result', {
           city: city,
           favorite: false,
+          averageRating: " ",
           details: data.val()
-      });
-    }
+        });
+        }
+    })
   })
   .catch(function(error) {
     res.send(error);
