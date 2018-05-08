@@ -150,21 +150,84 @@ router.post("/recommendations", isAuthenticated, function(req, res){
     //if you prefer money over time, recommend cities with earnings above average. If no, earnings will be at any possible level
     utils.filter_criteria.lowerEarnings = req.body.time_money === true ? utils.average_values.Average_Weekly_Workplace_Earnings_2017 : utils.extremeValues.lowerEarnings;  
     utils.filter_by_big_5(big_5.extraversion, big_5.openness, big_5.conscientiousness, big_5.agreeableness, big_5.neuroticism);
-    console.log(big_5, utils.filter_criteria);
     
   //add new recommended cities in the exiting_recommendations array. 
-  cities.orderByChild("Population_2016").startAt(utils.filter_criteria.lowerPopulation).limitToFirst(5).on("value", function(snapshot1){
-      cities.orderByChild("Employment_Rate_2017").startAt(utils.filter_criteria.lowerEmployment).limitToFirst(4).on("value", function(snapshot2){
-        cities.orderByChild("Ultrafast_Broadband_2017").startAt(utils.filter_criteria.lowerBroadband).limitToFirst(3).on("value", function(snapshot3){
-            console.log(snapshot1.val(),snapshot2.val(),snapshot3.val());
+  cities.orderByChild("Population_2016").startAt(utils.filter_criteria.lowerPopulation).limitToFirst(6).on("value", function(snapshot0){
+    cities.orderByChild("Population_Non-UK").startAt(utils.filter_criteria.lowerImmigration).limitToFirst(6).on("value", function(snapshot1){        
+        cities.orderByChild("Employment_Rate_2017").startAt(utils.filter_criteria.lowerEmployment).limitToFirst(6).on("value", function(snapshot2){
+            cities.orderByChild("Ultrafast_Broadband_2017").startAt(utils.filter_criteria.lowerBroadband).limitToFirst(6).on("value", function(snapshot3){           
+                cities.orderByChild("Average_Weekly_Workplace_Earnings_2017").startAt(utils.filter_criteria.lowerEarnings).limitToFirst(6).on("value", function(snapshot4){           
+                    cities.orderByChild("Ratio_of_Private_to_Public_Sector_Employment_2016").startAt(utils.filter_criteria.lowerSectorReport).limitToFirst(6).on("value", function(snapshot5){                       
+                        cities.orderByChild("Housing_Affordability_Ratio_2017").startAt(utils.filter_criteria.lowerHouseAffordability).limitToFirst(6 ).on("value", function(snapshot6){  
+                            const all_results_objects = Object.assign({}, snapshot1.val(), snapshot2.val(), snapshot3.val(),snapshot4.val(),snapshot5.val(),snapshot6.val());
+                            // const all_results_arr = Object.values(all_results_objects);
+                           //get the names of the cities and generate an array
+                            const all_key_result = [].concat.apply([], [
+                                Object.keys(snapshot0.val()),
+                                Object.keys(snapshot1.val()),
+                                Object.keys(snapshot2.val()), 
+                                Object.keys(snapshot3.val()),
+                                Object.keys(snapshot4.val()),
+                                Object.keys(snapshot5.val()),
+                                Object.keys(snapshot6.val())
+                            ]);
+                           //sort this array, find the duplicates and return them.
+                            var sorted_arr = all_key_result.slice().sort(); 
+                            var results = [];
+                            for (var i = 0; i < sorted_arr.length - 1; i++) {
+                                if (sorted_arr[i + 1] == sorted_arr[i]) 
+                                    results.push(sorted_arr[i]);                                
+                            }
+
+                            firebase.database().ref(`users/${req.user.uid}/recommendations`).once("value").then(function(recommendations){
+                                var current_recommendations = Object.keys(recommendations.val());
+                                 //concatenate recent recommendations with the existing ones from the favorite cities
+                                total_recommendations = [].concat.apply( current_recommendations, results);
+                                // remove duplicates from the concatenated array
+                                var total_recommendations_sorted = total_recommendations.slice().sort(); 
+                                var final_recommendations_arr = [];
+                                for (var i = 0; i < total_recommendations_sorted.length - 1; i++) {
+                                    if (total_recommendations_sorted[i + 1] != total_recommendations_sorted[i])
+                                        //keep only the unique values
+                                        final_recommendations_arr.push(total_recommendations_sorted[i]);                                    
+                                }
+                                // console.log(final_recommendations_arr);
+                                //get the values of the objects whose keys are mentioned in the final_recommendations_arr array
+                               var recommendations_details = {};
+                               //remove old recommendations. If these will be found in the new ones, they will remain anyways 
+                               firebase.database().ref(`users/${req.user.uid}/recommendations`).remove();
+
+                                Object.keys(all_results_objects).forEach(function(city){
+                                    console.log("inside the obj.keys thing, the city variable has the value: ", city);
+                                    //if the city is among the recommended ones, get its value and add it to recommendations
+                                    if ( final_recommendations_arr.indexOf( city ) > -1 ){
+                                        firebase.database().ref(`users/${req.user.uid}/recommendations/${city}`).update({
+                                            "Average_Weekly_Workplace_Earnings_2017": all_results_objects[city]["Average_Weekly_Workplace_Earnings_2017"],                                           
+                                            "CO2_Emissions_per_Capita_2015_tons": all_results_objects[city]["CO2_Emissions_per_Capita_2015_tons"],                                       
+                                            "Employment_Rate_2017": all_results_objects[city]["Employment_Rate_2017"],                            
+                                            "Housing_Affordability_Ratio_2017": all_results_objects[city]["Housing_Affordability_Ratio_2017"],                                           
+                                            "Mean_house_price_2017": all_results_objects[city]["Mean_house_price_2017"],                                 
+                                            "Population_2016": all_results_objects[city]["Population_2016"],                                     
+                                            "Population_Non-UK": all_results_objects[city]["Population_Non-UK"],                                     
+                                            "Population_UK": all_results_objects[city]["Population_UK"],                                        
+                                            "Public_libraries": all_results_objects[city]["Public_libraries"],
+                                            "Ratio_of_Private_to_Public_Sector_Employment_2016": all_results_objects[city]["Ratio_of_Private_to_Public_Sector_Employment_2016"],
+                                            "Ultrafast_Broadband_2017": all_results_objects[city]["Ultrafast_Broadband_2017"]
+                                        });                                              
+                                    }                                                                                                
+                                });                                         
+                              //Then, if successful, update user profile with form_completion:true
+                               firebase.database().ref(`users/${req.user.uid}`).update({"form_completion" : true });
+                            });                  
+                        });
+                    });
+                });
+            });
         });
       });
   });
 
-  //Remove duplicates form this array.Then, update Firebase collection. 
 
-  //Then, if successful, update user profile with form_completion:true
-  firebase.database().ref(`users/${req.user.uid}`).update({"form_completion" : true });
 
 });
 
