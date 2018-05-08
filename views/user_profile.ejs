@@ -159,7 +159,7 @@
                 <div class="container">
                   <p>Pick your favorite color (click the bubble):</p>
                   <div class="input-color-container">
-                    <input id="input-color" type="color" class="input-color" value="#ffffff" name="color">
+                    <input id="input-color" type="color" class="input-color" value="#ffffff" name="color" style="padding:0px;">
                   </div>
                 </div>
               </section>
@@ -189,8 +189,8 @@
           <div class="itemsHolder col-md-4" style="display:inline-block;float:left;margin-right:-15px;">
             <div class="items clearfix recommended-area">
               <div class="recommended-data">
-                <p>Population:  <%=rec.Population_2016%></p>
-                <p>Average weekly workplace earnings: £<%= rec.Average_Weekly_Workplace_Earnings_2017%></p>
+                <p>Population:  <%=rec.Population_2016%></p>               
+                <p>Immigrations Rate: <%= rec["Population_Non-UK"] %></p>
               </div>
             <div class="item recommended-item">
               <div class="itemInner">

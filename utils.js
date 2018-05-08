@@ -77,7 +77,6 @@ var filter_by_big_5 = function(extraversion, openness, conscientiousness, agreea
         filter_criteria.greaterImmigration = average_values["Population_Non-UK"];
         filter_criteria.lowerEmployment = average_values["Employment_Rate_2017"];        
     }
-    console.log(filter_criteria);
     return filter_criteria;
 };
 
