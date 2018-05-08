@@ -108,9 +108,12 @@
       data: JSON.stringify(data),
       contentType: 'application/json'
     })
-    .done(function() {
+    .done(function(data, textStatus, jqxhr) {
       alert("City added to favorites");
       $('#favorite_form .favorite').attr("class", "favorite favorite-success");
+    })
+    .fail(function(jqxhr, textStatus, errorThrown) {
+      alert(errorThrown + ": " + jqxhr.responseText);
     });
   }
 
