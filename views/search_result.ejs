@@ -73,25 +73,17 @@
             <div class="col-md-10" id="block">
               <div class="reviews-list">
                   <% if(details.reviews){
-                     Object.keys(details.reviews).forEach(function (id) {%>
-                        <div class="itemsHolder col-md-3">
-                          <div class="items clearfix">
-                          <div class="item">
-                            <div class="itemInner">
-                              <div class="review-title">
-                                <h6> <%= details.reviews[id].title %>     Rating: <%= details.reviews[id].rating %>*</h6>
-                              </div>
-                              <div class="review-body">
-                                <p> <%= details.reviews[id].body%> </p> 
-                              </div>
-                            </div>
-                          </div>
+                    Object.keys(details.reviews).forEach(function (id) {%>
+                        <div class="review-title review">
+                          <h6> <%= details.reviews[id].title %>: <%= details.reviews[id].rating %>*</h6>
                         </div>
-                      </div>
+                        <div class="review-body review">
+                          <p> <%= details.reviews[id].body%> </p> 
+                        </div>
                     <% }) %>
-                    <% } else { %>
+                  <% } else { %>
                       <p>There are no reviews for this city yet. Why not add one?</p>
-                      <%}%>
+                  <%}%>
               </div>
             </div>
         </div>     
