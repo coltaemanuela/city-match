@@ -57,7 +57,7 @@ app.post('/search', function(req,res){
           sumOfRatings += parseFloat(reviews.val()[k].rating);
          });
         var averageRating = sumOfRatings / Object.keys(reviews.val()).length;
-        averageRating.toFixed(2);
+        averageRating = averageRating.toFixed(2);
         
         // get current user if logged in
         var user = firebase.auth().currentUser;
