@@ -50,11 +50,6 @@ app.post('/search', function(req,res){
 
   console.log(city);
   firebase.database().ref(`cities/` + city).once('value').then(function(data){
-    /*
-      iterate over the /reviews collection
-      have a variable that serves as counter (of number of reviews)
-      have a variable that serves as sum (of ratings of all reviews)  
-    */
     firebase.database().ref(`cities/` + city + `/reviews`).once('value').then(function(reviews){
       //calculate average rating of all reviews for the city, if there are any
       if (reviews.val() != null) {
