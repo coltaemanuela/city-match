@@ -164,6 +164,12 @@ button{
   margin: 0 auto;
   margin-top: 50%;  
 }
+.user-details .btn.compare a, 
+.user-details .btn.compare a:hover, 
+.user-details .btn.compare a:active {
+  color: #fff;
+  text-decoration: none;
+}
 .city-name {
   position: absolute;
   bottom: 0px; /*10px;*/
