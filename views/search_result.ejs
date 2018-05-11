@@ -34,11 +34,16 @@
 
        <div class="col-xs-6 col-sm-6 col-md-6">
         <h3>Reviews</h3>
-            <div></div>
+            <div>
+              <% if(averageRating != " ") {%>
+                <p> <span>Average rating: </span> <%= averageRating %></p>
+              <%}%>
+            </div>
             <div>
                 <form id="review_form"  name="review_form" method="post" action="/cities/reviews">
                   <input type="hidden" name="city" value= <%= city%> />
-                  <!-- TODO display average rating here -->
+                  <!-- Copyright (c) 2018 by James Barnett (https://codepen.io/jamesbarnett/pen/vlpkh)
+                       see search_result.css for full copyright and license information-->
                   <div class="form-group rating-group">
                     <fieldset class="rating">
                       <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
@@ -60,16 +65,28 @@
                         <textarea placeholder="Your Review" id="body-input" class="form-control" rows="6" name="review_body"></textarea>
                     </div>
                     <div class="form-group">
-                      <input type="submit" class="submit-button" value="Submit">
+                      <input type="submit" class=" btn submit-button submit_review" value="Submit">
                     </div>
                 </form>
             </div>
             <div>
-            <!-- TODO display reviews here
-              
-            -->  
+            <div class="col-md-10" id="block">
+              <div class="reviews-list">
+                  <% if(details.reviews){
+                    Object.keys(details.reviews).forEach(function (id) {%>
+                        <div class="review-title review">
+                          <h6> <%= details.reviews[id].title %>: <%= details.reviews[id].rating %>*</h6>
+                        </div>
+                        <div class="review-body review">
+                          <p> <%= details.reviews[id].body%> </p> 
+                        </div>
+                    <% }) %>
+                  <% } else { %>
+                      <p>There are no reviews for this city yet. Why not add one?</p>
+                  <%}%>
+              </div>
             </div>
-            
+        </div>     
        </div>
    </div>
 </div>
@@ -108,9 +125,12 @@
       data: JSON.stringify(data),
       contentType: 'application/json'
     })
-    .done(function() {
+    .done(function(data, textStatus, jqxhr) {
       alert("City added to favorites");
       $('#favorite_form .favorite').attr("class", "favorite favorite-success");
+    })
+    .fail(function(jqxhr, textStatus, errorThrown) {
+      alert(errorThrown + ": " + jqxhr.responseText);
     });
   }
 
