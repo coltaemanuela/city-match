@@ -1,8 +1,33 @@
 var express = require('express');
 var firebase = require('firebase');
+var gcloud = require("google-cloud");
 var router = express.Router();
+//var url;
 
+var storage = gcloud.storage({
+    projectId:"city-match",
+    keyFilename: "city match-420315c4b0a9.json"
+  });
+var bucket = storage.bucket(`city-match.appspot.com`);
 
+async function getImage(city){
+    var filePath = city + ".jpg";
+    var citiesPath = "cities/" + filePath;
+    var storageFile = bucket.file(citiesPath);
+    var url = await storageFile.getSignedUrl({ action: "read",expires: "03-09-2491"}).then(signedUrls => {
+            //console.log(signedUrls[0]);
+            return signedUrls[0];
+     });
+     return url;
+}
+
+/*async function getImageSync(city){
+
+    var v = await getImage(city);
+    console.log(v);
+    return v;
+
+}*/
 
 //get array of cities based on the selection bars
 router.post('/filter', function(req,res){
@@ -119,12 +144,12 @@ router.post('/filter', function(req,res){
             var filteredCity2 = snapshot2.val();
            firebase.database().ref('cities').orderByChild('Employment_Rate_2017').startAt(lowerEmployment).endAt(upperEmployment).on("value", function(snapshot3){
                        var filteredCity3 = snapshot3.val();
-               firebase.database().ref('cities').orderByChild('Mean_house_price_2017').startAt(lowerHouse).endAt(upperHouse).on("value", function(snapshot4){
+               /*firebase.database().ref('cities').orderByChild('Mean_house_price_2017').startAt(lowerHouse).endAt(upperHouse).on("value", function(snapshot4){
                              var filteredCity4 = snapshot4.val();
                      firebase.database().ref('cities').orderByChild('CO2_Emissions_per_Capita_2015_tons').startAt(lowerCo2).endAt(upperCo2).on("value", function(snapshot5){
                                    var filteredCity5 = snapshot5.val();
                               firebase.database().ref('cities').orderByChild('Ultrafast_Broadband_2017').startAt(lowerUltra).endAt(upperUltra).on("value", function(snapshot6){
-                                         var filteredCity6 = snapshot6.val();
+                                         var filteredCity6 = snapshot6.val();*/
                Object.keys(filteredCity1).forEach(function(id1){
                   Object.keys(filteredCity2).forEach(function(id2){
                        Object.keys(filteredCity3).forEach(function(id3){
@@ -137,9 +162,10 @@ router.post('/filter', function(req,res){
                                     });
                                   });
                                });*/
-                               if(id1 == id2 && id1 == id3){
-                                   filteredCity.push(id1);
-                               }
+                               if(id1 === id2 && id1 === id3){
+                                    var cityUrl = getImage(id1);
+                                     filteredCity.push(id1);
+                                }
                             });
                        });
                    });
@@ -147,12 +173,21 @@ router.post('/filter', function(req,res){
                   //filteredCity = Object.assign(filteredCity1, filteredCity2, filteredCity3,filteredCity4,filteredCity5,filteredCity6);
                   filteredCity.push(id1);
                   });*/
+               //console.log(filteredCity);
+               //Object.keys(filteredCity).forEach(function(id){
+
+               //console.log(filteredCity[id]);
+
+               console.log(filteredCity);
                res.render('filter.ejs', {
-               filteredCity: filteredCity
-                                });
-                              });
+                      filteredCity: filteredCity
+               });
+
+
+               //});
+                              /*});
                             });
-                          });
+                          });*/
                        });
                     });
                 });

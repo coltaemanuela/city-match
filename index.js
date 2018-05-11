@@ -81,6 +81,45 @@ app.post('/search', function(req,res){
   });
 });
 
+app.get('/search1/:city', function(req,res){
+  //var city = req.body.city;
+  var city = req.param("city");
+  console.log(city);
+  firebase.database().ref(`cities/` + city).once('value')
+  .then(function(data){
+    /*
+      iterate over the /reviews collection
+      have a variable that serves as counter (of number of reviews)
+      have a variable that serves as sum (of ratings of all reviews)
+
+    */
+    // get current user if logged in
+    var user = firebase.auth().currentUser;
+    if (user !== null) {
+        req.user = user;
+        // check if city is in favorites
+        firebase.database().ref(`users/${user.uid}/favorites/${city}`).once("value").then(function(snapshot) {
+          var favorite = (snapshot.val() !== null);
+          res.render('search_result', {
+              city: city,
+              favorite: favorite,
+              details: data.val()
+          });
+        });
+    } else {
+      res.render('search_result', {
+          city: city,
+          favorite: false,
+          details: data.val()
+      });
+    }
+  })
+  .catch(function(error) {
+    res.send(error);
+  });
+});
+
+
 app.use(function (err, req, res, next) {
   console.log(err);
   if (err.name === 'UnauthorizedError') {

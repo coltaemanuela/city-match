@@ -36,18 +36,23 @@
 
     <script>
 
-    var config = {
-        "apiKey": "AIzaSyD2Ch6ki-gZ98roJx7cj6Rcb2-OY4ZM0vo",
-        "authDomain": "city-match.firebaseapp.com",
-         "databaseURL": "https://city-match.firebaseio.com",
-         "projectId": "city-match",
-         "storageBucket": "city-match.appspot.com",
-         "messagingSenderId": "331136100363"
-      };
+      var config = {
+           "apiKey": "AIzaSyD2Ch6ki-gZ98roJx7cj6Rcb2-OY4ZM0vo",
+            "authDomain": "city-match.firebaseapp.com",
+            "databaseURL": "https://city-match.firebaseio.com",
+            "projectId": "city-match",
+            "storageBucket": "city-match.appspot.com",
+            "messagingSenderId": "331136100363"
+         };
 
-      firebase.initializeApp(config);
+         firebase.initializeApp(config);
+
 
       var db = firebase.database();
+
+      var storage = firebase.storage();
+
+      var bucket = storage.bucket(`city-match.appspot.com`);
 
       var map;
       function initMap() {
@@ -55,6 +60,13 @@
                   center: {lat: 52.635, lng:-1.135},
                   zoom: 6.3,
                 });
+
+           var styles = [
+                     { "featureType": "landscape", "stylers": [ { "color": "#b1babf" } ] },
+                     { "featureType": "water", "stylers": [ { "color": "#4d6a79" } ] },
+                     { "featureType": "poi.business", "stylers": [ { "color": "#5a7093" } ] }
+                 ]
+           map.setOptions({styles: styles})
 
 
             var geocoder = new google.maps.Geocoder();
@@ -65,7 +77,9 @@
       function geocodeAddress(geocoder, resultsMap) {
 
          var address = document.getElementById('cityName').value;
+         //alert(address);
          var cities = address.split(",");
+         //alert(cities);
          var population = [];
          var earnings = [];
          var employment = [];
@@ -95,8 +109,10 @@
 
 
               var contentString = '<div id="content">'+
+                                  /*'<div id="img" style="float:left">'+
+                                  '<img>'+ '</img>'
+                                  '</div>'+*/
                                   '<div id="siteNotice">'+
-                                  '</div>'+
                                   '<p>'+ cities[i] + '</p>' +
                                   '<div id="bodyContent">'+
                                   '<p><b>Population :</b>'+ population[i] + '</p>' +
@@ -107,6 +123,7 @@
                                   '<p><b>Ultrafast Broadband (%): </b>'+ ub[i] + '</p>' +
                                   '<p><b>Immigrants (%): </b>'+ immigrant[i] + '</p>' +
                                   '<p><b>Public libraries: </b>'+ library[i] + '</p>' +
+                                  '<p>More details at: <a href= /search1/'+ cities[i] + '>' + cities[i] + '</a>'
                                   '</div>'+
                                   '</div>';
 
