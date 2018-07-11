@@ -6,7 +6,7 @@ var router = express.Router();
 
 var storage = gcloud.storage({
     projectId:"city-match",
-    keyFilename: "city match-420315c4b0a9.json"
+    keyFilename: "***.json"
   });
 var bucket = storage.bucket(`city-match.appspot.com`);
 
