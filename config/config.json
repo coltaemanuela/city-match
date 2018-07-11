@@ -1,11 +1,11 @@
 {    
     "firebase" : {
-        "apiKey": "AIzaSyD2Ch6ki-gZ98roJx7cj6Rcb2-OY4ZM0vo",
-        "authDomain": "city-match.firebaseapp.com",
-        "databaseURL": "https://city-match.firebaseio.com",
-        "projectId": "city-match",
-        "storageBucket": "city-match.appspot.com",
-        "messagingSenderId": "331136100363"
+        "apiKey": "***",
+        "authDomain": "***",
+        "databaseURL": "***",
+        "projectId": "**",
+        "storageBucket": "***",
+        "messagingSenderId": "**"
     },
     "server" : {
 		"port" : "3000"
@@ -18,6 +18,6 @@
         "duration":"2700000",
         "activeDuration": "900000" 
     },
-    "API_key": "AIzaSyDAdyZ79lemBC3DvAYCrpALxucqtEUv4Zs"
+    "API_key": "***"
     
 }
