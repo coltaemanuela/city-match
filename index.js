@@ -23,10 +23,10 @@ firebase.initializeApp(config.firebase);
 
 //storage initialization
 var storage = gcloud.storage({
-  projectId:'city-match',
-  keyFilename: 'city match-420315c4b0a9.json'
+  projectId:'**',
+  keyFilename: '***.json'
 });
-var bucket = storage.bucket(`city-match.appspot.com`);
+var bucket = storage.bucket(`***.com`);
 
 //user session
 app.use(session(config.session));
